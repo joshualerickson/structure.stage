@@ -110,8 +110,10 @@ testthat::test_that("fixed-height betweenness response retains all three outcome
   testthat::expect_equal(base::length(base::unique(response$response$height_value)), 2L)
   contrast_plot <- structure.stage::plot_fixed_height_msf_se(response)
   probability_plot <- structure.stage::plot_fixed_height_probabilities(response)
+  surface_plot <- structure.stage::plot_msf_se_response_surface(response)
   testthat::expect_s3_class(ggplot2::ggplot_build(contrast_plot), "ggplot_built")
   testthat::expect_s3_class(ggplot2::ggplot_build(probability_plot), "ggplot_built")
+  testthat::expect_s3_class(ggplot2::ggplot_build(surface_plot), "ggplot_built")
   testthat::expect_error(
     structure.stage::analyze_msf_se_height_betweenness(
       final, data$records, height_variable = "height", betweenness_variable = "height"

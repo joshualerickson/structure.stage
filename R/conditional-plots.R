@@ -68,6 +68,77 @@ plot_fixed_height_probabilities <- function(conditional_response) {
     ggplot2::theme_minimal()
 }
 
+#' Plot the joint height and betweenness model response
+#'
+#' This heat map is a two-dimensional partial-dependence-style display. Each
+#' cell fixes both height and betweenness for every reference record, retains
+#' its other selected predictors, obtains predicted probabilities, and then
+#' averages them. It therefore describes the fitted model's conditional
+#' response; it is neither an observed performance surface nor a causal effect.
+#'
+#' Use a sufficiently dense, distinct pair of quantile sequences in
+#' [analyze_msf_se_height_betweenness()] before plotting, for example
+#' `seq(0.05, 0.95, by = 0.05)` for both variables.
+#'
+#' @param conditional_response Result from
+#'   [analyze_msf_se_height_betweenness()].
+#' @param response Quantity to display: MSF minus SE probability (the default),
+#'   or the MSF, SE, or SI probability.
+#' @return A ggplot object with a response heat map and contours.
+#' @importFrom rlang .data
+#' @export
+plot_msf_se_response_surface <- function(
+    conditional_response,
+    response = base::c("msf_minus_se", "msf", "se", "si")) {
+  if (!base::inherits(conditional_response, "structure_conditional_response")) {
+    base::stop("conditional_response must come from analyze_msf_se_height_betweenness().", call. = FALSE)
+  }
+  response <- base::match.arg(response)
+  data <- conditional_response$response
+  response_column <- base::switch(response,
+    msf_minus_se = "mean_msf_minus_se",
+    msf = "mean_probability_msf",
+    se = "mean_probability_se",
+    si = "mean_probability_si"
+  )
+  if (base::length(base::unique(data$height_value)) < 2L ||
+      base::length(base::unique(data$betweenness_value)) < 2L) {
+    base::stop("The response needs at least two distinct height and betweenness values to form a surface.", call. = FALSE)
+  }
+  data$response_value <- data[[response_column]]
+  fill <- if (identical(response, "msf_minus_se")) {
+    ggplot2::scale_fill_gradient2(
+      low = "#3b4cc0", mid = "white", high = "#b40426", midpoint = 0,
+      name = "P(msf) - P(se)"
+    )
+  } else {
+    ggplot2::scale_fill_viridis_c(name = base::paste0("Mean P(", response, ")"))
+  }
+  title <- if (identical(response, "msf_minus_se")) {
+    "Joint MSF versus SE response to height and understory betweenness"
+  } else {
+    base::paste0("Joint ", base::toupper(response), " probability response to height and understory betweenness")
+  }
+  ggplot2::ggplot(data, ggplot2::aes(
+    x = .data$betweenness_value, y = .data$height_value, fill = .data$response_value
+  )) +
+    ggplot2::geom_tile() +
+    ggplot2::geom_contour(
+      data = data,
+      ggplot2::aes(
+        x = .data$betweenness_value, y = .data$height_value, z = .data$response_value
+      ),
+      inherit.aes = FALSE, color = "grey20", linewidth = 0.35
+    ) +
+    fill +
+    ggplot2::labs(
+      x = conditional_response$config$betweenness_variable,
+      y = conditional_response$config$height_variable,
+      title = title
+    ) +
+    ggplot2::theme_minimal()
+}
+
 #' Plot held-out MSF-versus-SE performance by height band
 #'
 #' @param height_performance Output from [evaluate_msf_se_height_bins()].
