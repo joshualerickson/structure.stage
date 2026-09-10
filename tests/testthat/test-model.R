@@ -71,6 +71,9 @@ testthat::test_that("nested spatial CV supplies held-out predictions and a final
   testthat::expect_equal(base::sum(height_performance$n), 2L * 72L)
   testthat::expect_true(base::all(height_performance$balanced_accuracy >= 0 &
                                   height_performance$balanced_accuracy <= 1))
+  testthat::expect_s3_class(
+    structure.stage::plot_msf_se_height_performance(height_performance), "ggplot"
+  )
   final <- structure.stage::fit_final_structure_gbm(
     data, base::c("height", "cover", "bt_diff"), outer, tune_grid = grid
   )
@@ -105,6 +108,8 @@ testthat::test_that("fixed-height betweenness response retains all three outcome
                             response$response$mean_probability_si,
                           base::rep(1, 6L), tolerance = 1e-8)
   testthat::expect_equal(base::length(base::unique(response$response$height_value)), 2L)
+  testthat::expect_s3_class(structure.stage::plot_fixed_height_msf_se(response), "ggplot")
+  testthat::expect_s3_class(structure.stage::plot_fixed_height_probabilities(response), "ggplot")
   testthat::expect_error(
     structure.stage::analyze_msf_se_height_betweenness(
       final, data$records, height_variable = "height", betweenness_variable = "height"

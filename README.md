@@ -303,8 +303,8 @@ height_performance <- structure.stage::evaluate_msf_se_height_bins(
 
 This reports MSF/SE recall and balanced accuracy within observed height bands.
 Use bands with adequate counts of both stand-derived classes. The plotting helpers
-in `dev/interpretation_plots.R` provide `plot_fixed_height_msf_se()`,
-`plot_fixed_height_probabilities()`, and `plot_msf_se_height_performance()`.
+`plot_fixed_height_msf_se()`, `plot_fixed_height_probabilities()`, and
+`plot_msf_se_height_performance()` are exported package functions.
 The exact Erickson et al. citation and equivalence to the historical published
 method still need confirmation.
 

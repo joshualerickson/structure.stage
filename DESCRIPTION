@@ -13,6 +13,8 @@ Imports:
     CAST (>= 1.0.3),
     caret (>= 7.0.1),
     gbm (>= 2.2.2),
+    ggplot2,
+    rlang,
     sf,
     stats,
     utils,
