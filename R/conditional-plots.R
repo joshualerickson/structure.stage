@@ -3,6 +3,7 @@
 #' @param conditional_response Result from
 #'   [analyze_msf_se_height_betweenness()].
 #' @return A ggplot object. Positive values favor MSF relative to SE.
+#' @importFrom rlang .data
 #' @export
 plot_fixed_height_msf_se <- function(conditional_response) {
   if (!base::inherits(conditional_response, "structure_conditional_response")) {
@@ -16,8 +17,8 @@ plot_fixed_height_msf_se <- function(conditional_response) {
     " = ", base::formatC(data$height_value, digits = 3, format = "fg")
   )
   ggplot2::ggplot(data, ggplot2::aes(
-    x = rlang::.data$betweenness_value, y = rlang::.data$mean_msf_minus_se,
-    color = rlang::.data$height_label
+    x = .data$betweenness_value, y = .data$mean_msf_minus_se,
+    color = .data$height_label
   )) +
     ggplot2::geom_hline(yintercept = 0, color = "grey45") +
     ggplot2::geom_line(linewidth = 1) +
@@ -55,8 +56,8 @@ plot_fixed_height_probabilities <- function(conditional_response) {
     " = ", base::formatC(long$height_value, digits = 3, format = "fg")
   )
   ggplot2::ggplot(long, ggplot2::aes(
-    x = rlang::.data$betweenness_value, y = rlang::.data$probability,
-    color = rlang::.data$outcome
+    x = .data$betweenness_value, y = .data$probability,
+    color = .data$outcome
   )) +
     ggplot2::geom_line(linewidth = 1) +
     ggplot2::facet_wrap(~height_label) +
@@ -87,8 +88,8 @@ plot_msf_se_height_performance <- function(height_performance) {
       metric = "Balanced accuracy", value = height_performance$balanced_accuracy)
   )
   ggplot2::ggplot(long, ggplot2::aes(
-    x = rlang::.data$height_band, y = rlang::.data$value,
-    group = rlang::.data$metric, color = rlang::.data$metric
+    x = .data$height_band, y = .data$value,
+    group = .data$metric, color = .data$metric
   )) +
     ggplot2::geom_line() + ggplot2::geom_point(size = 2.5) +
     ggplot2::scale_y_continuous(
