@@ -486,3 +486,105 @@ plot_pdp_zmax_betweenness_surface <- function(
     plot + ggplot2::scale_fill_viridis_c(name = response)
   }
 }
+
+# Diagnose observed records and model responses in the high-height,
+# high-betweenness tail. This is intentionally a development helper: use it to
+# audit sites that may explain a surprising PDP pattern before interpreting that
+# pattern ecologically.
+diagnose_high_height_betweenness <- function(
+    model,
+    reference_data,
+    height_variable = "zmax",
+    betweenness_variable = "understory_mean_betweenness",
+    height_quantile = 0.75,
+    betweenness_from = 600,
+    betweenness_to = NULL,
+    site_column = NULL) {
+  if (base::is.character(model) && base::length(model) == 1L) model <- base::readRDS(model)
+  if (base::inherits(model, "structure_gbm")) {
+    caret_model <- model$model
+    predictors <- model$selected_predictors
+  } else if (base::inherits(model, "train") && base::identical(model$method, "gbm")) {
+    caret_model <- model
+    predictors <- model$coefnames
+    if (base::is.null(predictors) || !base::length(predictors)) {
+      predictors <- base::setdiff(base::names(model$trainingData), ".outcome")
+    }
+  } else {
+    base::stop("model must be a structure_gbm bundle, caret GBM train object, or an RDS path.", call. = FALSE)
+  }
+  required <- base::unique(base::c(predictors, height_variable, betweenness_variable))
+  if (!base::is.data.frame(reference_data) || base::length(base::setdiff(required, base::names(reference_data)))) {
+    base::stop("reference_data must contain all fitted predictors plus height and betweenness.", call. = FALSE)
+  }
+  if (!base::is.numeric(height_quantile) || base::length(height_quantile) != 1L ||
+      base::is.na(height_quantile) || height_quantile < 0 || height_quantile > 1 ||
+      !base::is.numeric(betweenness_from) || base::length(betweenness_from) != 1L ||
+      base::is.na(betweenness_from)) {
+    base::stop("height_quantile must be from 0 through 1 and betweenness_from must be one number.", call. = FALSE)
+  }
+  if (base::is.null(betweenness_to)) {
+    betweenness_to <- stats::quantile(reference_data[[betweenness_variable]], 0.95, names = FALSE, type = 7)
+  }
+  if (!base::is.numeric(betweenness_to) || base::length(betweenness_to) != 1L ||
+      base::is.na(betweenness_to) || betweenness_to <= betweenness_from) {
+    base::stop("betweenness_to must be a single value greater than betweenness_from.", call. = FALSE)
+  }
+  height_value <- stats::quantile(reference_data[[height_variable]], height_quantile, names = FALSE, type = 7)
+  if (base::is.null(site_column)) {
+    candidates <- base::c("site_id", "site", "landscape_id", "landscape", "polygon_id", "source_id")
+    detected <- candidates[candidates %in% base::names(reference_data)]
+    site_column <- if (base::length(detected)) detected[[1L]] else NULL
+  }
+  if (base::length(site_column) && (!base::is.character(site_column) || !site_column %in% base::names(reference_data))) {
+    base::stop("site_column must name a column in reference_data.", call. = FALSE)
+  }
+  probabilities <- function(data) {
+    caret::predict.train(caret_model, newdata = data[, predictors, drop = FALSE], type = "prob")[, c("msf", "se", "si"), drop = FALSE]
+  }
+  observed_probabilities <- probabilities(reference_data)
+  observed <- base::cbind(reference_data, observed_probabilities)
+  observed$predicted_class <- base::colnames(observed_probabilities)[base::max.col(observed_probabilities, ties.method = "first")]
+  observed_tail <- observed[
+    observed[[height_variable]] >= height_value & observed[[betweenness_variable]] >= betweenness_from,
+    , drop = FALSE
+  ]
+  low <- reference_data
+  high <- reference_data
+  low[[height_variable]] <- height_value
+  high[[height_variable]] <- height_value
+  low[[betweenness_variable]] <- betweenness_from
+  high[[betweenness_variable]] <- betweenness_to
+  low_probability <- probabilities(low)
+  high_probability <- probabilities(high)
+  row_effects <- reference_data[, base::intersect(
+    base::c("sample_id", site_column, ".outcome", "structure_stage", height_variable, betweenness_variable),
+    base::names(reference_data)
+  ), drop = FALSE]
+  row_effects$p_msf_from <- low_probability$msf
+  row_effects$p_msf_to <- high_probability$msf
+  row_effects$p_si_from <- low_probability$si
+  row_effects$p_si_to <- high_probability$si
+  row_effects$delta_msf <- high_probability$msf - low_probability$msf
+  row_effects$delta_se <- high_probability$se - low_probability$se
+  row_effects$delta_si <- high_probability$si - low_probability$si
+  row_effects <- row_effects[base::order(row_effects$delta_si, decreasing = TRUE), , drop = FALSE]
+  if (base::length(site_column)) {
+    site_effects <- stats::aggregate(
+      row_effects[, base::c("delta_msf", "delta_se", "delta_si"), drop = FALSE],
+      by = base::list(site = row_effects[[site_column]]), FUN = base::mean
+    )
+    site_effects$n_reference_rows <- base::as.integer(base::table(row_effects[[site_column]])[base::match(site_effects$site, base::names(base::table(row_effects[[site_column]])))])
+    site_effects <- site_effects[base::order(site_effects$delta_si, decreasing = TRUE), , drop = FALSE]
+  } else {
+    site_effects <- NULL
+  }
+  base::list(
+    thresholds = base::list(height_value = height_value, betweenness_from = betweenness_from,
+      betweenness_to = betweenness_to, height_quantile = height_quantile),
+    observed_tail = observed_tail,
+    observed_tail_outcomes = base::sort(base::table(observed_tail$predicted_class), decreasing = TRUE),
+    row_effects = row_effects,
+    site_effects = site_effects
+  )
+}
