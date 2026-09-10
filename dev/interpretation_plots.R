@@ -226,3 +226,102 @@ plot_msf_se_height_performance <- function(height_performance) {
     ) +
     ggplot2::theme_minimal()
 }
+
+# Joint partial dependence for the two variables driving the MSF/SE boundary.
+#
+# This stays in dev/ deliberately: it is an exploratory interpretation script,
+# not a package interface. It uses pdp to replace zmax and understory
+# betweenness across a grid, averages predictions over observed reference rows,
+# and retains every other selected predictor as observed.
+#
+# Install once if needed: install.packages("pdp")
+pdp_zmax_betweenness <- function(
+    model,
+    reference_data,
+    height_variable = "zmax",
+    betweenness_variable = "understory_mean_betweenness",
+    grid_resolution = 25L) {
+  if (!requireNamespace("pdp", quietly = TRUE)) {
+    base::stop("Install the pdp package first: install.packages('pdp').", call. = FALSE)
+  }
+  if (base::is.character(model) && base::length(model) == 1L) model <- base::readRDS(model)
+  if (base::inherits(model, "structure_gbm")) {
+    caret_model <- model$model
+    predictors <- model$selected_predictors
+  } else if (base::inherits(model, "train") && base::identical(model$method, "gbm")) {
+    caret_model <- model
+    predictors <- model$coefnames
+  } else {
+    base::stop("model must be a structure_gbm bundle, caret GBM train object, or an RDS path.", call. = FALSE)
+  }
+  variables <- base::c(height_variable, betweenness_variable)
+  if (!base::is.data.frame(reference_data) ||
+      base::length(base::setdiff(base::c(predictors, variables), base::names(reference_data)))) {
+    base::stop("reference_data must contain every selected predictor, zmax, and understory betweenness.", call. = FALSE)
+  }
+  if (!base::is.numeric(grid_resolution) || base::length(grid_resolution) != 1L ||
+      base::is.na(grid_resolution) || grid_resolution < 2L) {
+    base::stop("grid_resolution must be a single integer of at least 2.", call. = FALSE)
+  }
+  reference_data <- reference_data[, predictors, drop = FALSE]
+  probability <- function(class_name) {
+    pdp::partial(
+      object = caret_model,
+      pred.var = variables,
+      train = reference_data,
+      pred.fun = function(object, newdata) {
+        caret::predict.train(object, newdata = newdata, type = "prob")[[class_name]]
+      },
+      grid.resolution = base::as.integer(grid_resolution),
+      progress = "none"
+    )
+  }
+  msf <- probability("msf")
+  se <- probability("se")
+  si <- probability("si")
+  output <- msf[, variables, drop = FALSE]
+  output$p_msf <- msf$yhat
+  output$p_se <- se$yhat
+  output$p_si <- si$yhat
+  output$msf_minus_se <- output$p_msf - output$p_se
+  output
+}
+
+#' Plot a joint PDP surface from pdp_zmax_betweenness().
+#'
+#' Positive values of msf_minus_se favor MSF. The plot is a model response
+#' surface, not observed performance and not a causal response.
+plot_pdp_zmax_betweenness <- function(
+    pdp_surface, response = base::c("msf_minus_se", "p_msf", "p_se", "p_si")) {
+  response <- base::match.arg(response)
+  required <- base::c("zmax", "understory_mean_betweenness", response)
+  if (!base::is.data.frame(pdp_surface) ||
+      base::length(base::setdiff(required, base::names(pdp_surface)))) {
+    base::stop("pdp_surface must be the result of pdp_zmax_betweenness() using the default variable names.", call. = FALSE)
+  }
+  diverging <- identical(response, "msf_minus_se")
+  plot <- ggplot2::ggplot(pdp_surface, ggplot2::aes(
+    x = .data$understory_mean_betweenness, y = .data$zmax, fill = .data[[response]]
+  )) +
+    ggplot2::geom_tile() +
+    ggplot2::geom_contour(
+      data = pdp_surface,
+      ggplot2::aes(
+        x = .data$understory_mean_betweenness, y = .data$zmax, z = .data[[response]]
+      ),
+      inherit.aes = FALSE, color = "grey20", linewidth = 0.35
+    ) +
+    ggplot2::labs(
+      x = "understory_mean_betweenness", y = "zmax",
+      title = "Joint partial dependence of zmax and understory betweenness"
+    ) +
+    ggplot2::theme_minimal()
+  if (diverging) {
+    plot + ggplot2::scale_fill_gradient2(
+      low = "#3b4cc0", mid = "white", high = "#b40426", midpoint = 0,
+      name = "P(msf) - P(se)"
+    )
+  } else {
+    plot + ggplot2::scale_fill_viridis_c(name = response)
+  }
+}
