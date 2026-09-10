@@ -42,6 +42,37 @@ audit_structure_predictions <- function(model, data, outcome_column = ".outcome"
   audit
 }
 
+#' Build a LIME case audit from outer held-out MSCV predictions.
+#'
+#' Use this audit, rather than in-sample final-model predictions, when selecting
+#' records that the model got right or wrong. The final model can subsequently
+#' be explained for those selected records.
+audit_structure_mscv_predictions <- function(mscv, data) {
+  if (!base::inherits(mscv, "structure_mscv") || !base::is.data.frame(mscv$predictions)) {
+    base::stop("mscv must be a structure_mscv result with outer held-out predictions.", call. = FALSE)
+  }
+  required <- base::c("sample_id", "obs", "pred", "msf", "se", "si")
+  if (!base::is.data.frame(data) || !"sample_id" %in% base::names(data) ||
+      base::length(base::setdiff(required, base::names(mscv$predictions)))) {
+    base::stop("data needs sample_id and MSCV predictions need sample_id, obs, pred, msf, se, and si.", call. = FALSE)
+  }
+  index <- base::match(mscv$predictions$sample_id, data$sample_id)
+  if (base::anyNA(index) || base::anyDuplicated(data$sample_id)) {
+    base::stop("MSCV sample_id values must match unique data$sample_id values.", call. = FALSE)
+  }
+  predictions <- mscv$predictions
+  audit <- base::data.frame(
+    row_id = index,
+    observed_class = base::as.character(predictions$obs),
+    predicted_class = base::as.character(predictions$pred),
+    confidence = base::apply(predictions[, base::c("msf", "se", "si"), drop = FALSE], 1L, base::max),
+    p_msf = predictions$msf, p_se = predictions$se, p_si = predictions$si,
+    stringsAsFactors = FALSE
+  )
+  audit$correct <- audit$observed_class == audit$predicted_class
+  audit
+}
+
 #' Select representative high-confidence correct and incorrect cases for LIME.
 select_lime_cases <- function(audit, n_per_group = 2L) {
   required <- base::c("row_id", "observed_class", "predicted_class", "confidence", "correct")
