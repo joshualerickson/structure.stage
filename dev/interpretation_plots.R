@@ -230,9 +230,10 @@ plot_msf_se_height_performance <- function(height_performance) {
 # Joint partial dependence for the two variables driving the MSF/SE boundary.
 #
 # This stays in dev/ deliberately: it is an exploratory interpretation script,
-# not a package interface. It uses pdp to replace zmax and understory
-# betweenness across a grid, averages predictions over observed reference rows,
-# and retains every other selected predictor as observed.
+# not a package interface. It uses pdp to create native `partial` objects, but
+# calculates each cell exactly as the earlier manual workflow did: replace zmax
+# and understory betweenness for every reference record, predict all records,
+# then average the selected class probability.
 #
 # Install once if needed: install.packages("pdp")
 pdp_zmax_betweenness <- function(
@@ -240,10 +241,8 @@ pdp_zmax_betweenness <- function(
     reference_data = NULL,
     height_variable = "zmax",
     betweenness_variable = "understory_mean_betweenness",
-    grid_resolution = 15L,
-    reference_classes = base::c("msf", "se"),
-    trim_outliers = TRUE,
-    chull = TRUE) {
+    grid_quantiles = base::seq(0.05, 0.95, by = 0.05),
+    reference_classes = NULL) {
   if (!requireNamespace("pdp", quietly = TRUE)) {
     base::stop("Install the pdp package first: install.packages('pdp').", call. = FALSE)
   }
@@ -269,14 +268,10 @@ pdp_zmax_betweenness <- function(
       ". Supply the complete model training data, not a zmax/betweenness-only table.", call. = FALSE
     )
   }
-  if (!base::is.numeric(grid_resolution) || base::length(grid_resolution) != 1L ||
-      base::is.na(grid_resolution) || grid_resolution < 2L) {
-    base::stop("grid_resolution must be a single integer of at least 2.", call. = FALSE)
-  }
-  if (!base::is.logical(trim_outliers) || base::length(trim_outliers) != 1L ||
-      base::is.na(trim_outliers) || !base::is.logical(chull) ||
-      base::length(chull) != 1L || base::is.na(chull)) {
-    base::stop("trim_outliers and chull must each be TRUE or FALSE.", call. = FALSE)
+  if (!base::is.numeric(grid_quantiles) || base::length(grid_quantiles) < 2L ||
+      base::anyNA(grid_quantiles) || base::any(!base::is.finite(grid_quantiles)) ||
+      base::any(grid_quantiles < 0 | grid_quantiles > 1) || base::anyDuplicated(grid_quantiles)) {
+    base::stop("grid_quantiles must contain at least two distinct values from 0 through 1.", call. = FALSE)
   }
   if (!base::is.null(reference_classes) && ".outcome" %in% base::names(reference_data)) {
     reference_data <- reference_data[
@@ -300,17 +295,27 @@ pdp_zmax_betweenness <- function(
   # records a narrower coefnames vector. caret::predict.train() ignores any
   # additional columns when it creates predictions.
   reference_data <- reference_data[, base::unique(base::c(predictors, variables)), drop = FALSE]
+  grid <- base::expand.grid(
+    stats::quantile(reference_data[[height_variable]], probs = grid_quantiles,
+      names = FALSE, type = 7),
+    stats::quantile(reference_data[[betweenness_variable]], probs = grid_quantiles,
+      names = FALSE, type = 7),
+    KEEP.OUT.ATTRS = FALSE, stringsAsFactors = FALSE
+  )
+  base::names(grid) <- variables
+  if (base::anyDuplicated(grid[[height_variable]]) ||
+      base::anyDuplicated(grid[[betweenness_variable]])) {
+    base::stop("grid_quantiles produce duplicate observed values; use fewer quantiles.", call. = FALSE)
+  }
   probability <- function(class_name) {
     pdp::partial(
       object = caret_model,
       pred.var = variables,
       train = reference_data,
-      type = "classification",
-      which.class = base::match(class_name, caret_model$levels),
-      prob = TRUE,
-      grid.resolution = base::as.integer(grid_resolution),
-      trim.outliers = trim_outliers,
-      chull = chull,
+      pred.grid = grid,
+      pred.fun = function(object, newdata) {
+        base::mean(caret::predict.train(object, newdata = newdata, type = "prob")[[class_name]])
+      },
       progress = "none"
     )
   }
