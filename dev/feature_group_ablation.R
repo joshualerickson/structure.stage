@@ -131,3 +131,85 @@ run_feature_group_ablation <- function(
   }
   base::list(performance = performance, models = models, assessment = "single_heldout_group_ablation")
 }
+
+#' Plot held-out feature-group ablation performance changes.
+#'
+#' Negative bars mean that removing the feature group reduced skill or worsened
+#' log loss relative to the refitted full model.
+plot_feature_group_ablation <- function(
+    ablation,
+    metrics = base::c(
+      "balanced_accuracy", "macro_f1", "recall_msf", "recall_se", "recall_si", "log_loss"
+    )) {
+  if (!base::is.list(ablation) || !base::is.data.frame(ablation$performance)) {
+    base::stop("ablation must come from run_feature_group_ablation().", call. = FALSE)
+  }
+  performance <- ablation$performance
+  required <- base::c("candidate", "status", metrics, base::paste0("delta_", metrics))
+  if (base::length(base::setdiff(required, base::names(performance)))) {
+    base::stop("ablation performance is missing requested metrics.", call. = FALSE)
+  }
+  performance <- performance[performance$status == "fitted" & performance$candidate != "full", , drop = FALSE]
+  if (!base::nrow(performance)) {
+    base::stop("No fitted feature-group ablations are available to plot.", call. = FALSE)
+  }
+  labels <- base::c(
+    understory = "Drop understory", midstory_vertical = "Drop midstory/vertical",
+    understory_midstory = "Drop understory + midstory"
+  )
+  candidate_labels <- labels[performance$candidate]
+  candidate_labels[base::is.na(candidate_labels)] <- performance$candidate[base::is.na(candidate_labels)]
+  long <- base::data.frame(
+    candidate = base::rep(candidate_labels, times = base::length(metrics)),
+    metric = base::rep(metrics, each = base::nrow(performance)),
+    change = base::unlist(performance[, base::paste0("delta_", metrics), drop = FALSE], use.names = FALSE),
+    row.names = NULL
+  )
+  # Higher log loss is worse, so reverse its delta to make every negative bar
+  # indicate a performance loss after dropping a feature group.
+  long$change[long$metric == "log_loss"] <- -long$change[long$metric == "log_loss"]
+  metric_labels <- base::c(
+    balanced_accuracy = "Balanced accuracy", macro_f1 = "Macro F1",
+    recall_msf = "MSF recall", recall_se = "SE recall", recall_si = "SI recall",
+    log_loss = "Log loss (reversed)"
+  )
+  long$metric <- base::factor(long$metric, levels = metrics, labels = metric_labels[metrics])
+  long$candidate <- base::factor(long$candidate, levels = base::unique(candidate_labels))
+  ggplot2::ggplot(long, ggplot2::aes(x = .data$candidate, y = .data$change, fill = .data$candidate)) +
+    ggplot2::geom_hline(yintercept = 0, color = "grey35", linewidth = 0.35) +
+    ggplot2::geom_col(width = 0.7) +
+    ggplot2::facet_wrap(~metric, scales = "free_y", ncol = 3) +
+    ggplot2::scale_fill_manual(values = base::c(
+      "Drop understory" = "#0072B2",
+      "Drop midstory/vertical" = "#D55E00",
+      "Drop understory + midstory" = "#7A5195"
+    )) +
+    ggplot2::labs(
+      x = NULL, y = "Change from refitted full model",
+      title = "Held-out feature-group ablation",
+      caption = "Negative values mean lower skill or higher log loss after removing the feature group."
+    ) +
+    ggplot2::theme_classic(base_size = 12) +
+    ggplot2::theme(
+      legend.position = "none",
+      axis.text.x = ggplot2::element_text(angle = 20, hjust = 1),
+      strip.background = ggplot2::element_rect(fill = "grey95", color = "grey45"),
+      strip.text = ggplot2::element_text(face = "bold", size = 9),
+      plot.caption = ggplot2::element_text(hjust = 0)
+    )
+}
+
+#' Save the held-out feature-group ablation plot as a PNG.
+#'
+#' @inheritParams plot_feature_group_ablation
+#' @param path PNG file path to create.
+#' @param width,height Output dimensions in inches.
+#' @param dpi Output resolution.
+#' @return The normalized output path, invisibly.
+save_feature_group_ablation_plot <- function(
+    ablation, path, width = 11, height = 7, dpi = 400) {
+  if (!base::dir.exists(base::dirname(path))) base::dir.create(base::dirname(path), recursive = TRUE)
+  figure <- plot_feature_group_ablation(ablation)
+  ggplot2::ggsave(path, plot = figure, width = width, height = height, dpi = dpi, bg = "white")
+  base::normalizePath(path, winslash = "/", mustWork = FALSE)
+}
