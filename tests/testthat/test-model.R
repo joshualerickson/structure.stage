@@ -91,3 +91,57 @@ testthat::test_that("nested mode selects variables inside outer training partiti
   testthat::expect_true(base::all(base::lengths(result$selected$selected_predictors) >= 2L))
   testthat::expect_setequal(result$predictions$sample_id, data$records$sample_id)
 })
+
+testthat::test_that("SD ablation records point, average, and msf versus se behavior", {
+  data <- synthetic_training()
+  grid <- base::expand.grid(n.trees = 10L, interaction.depth = 1L,
+                            shrinkage = 0.1, n.minobsinnode = 2L)
+  folds <- structure.stage::build_spatial_folds(data, 18, k = 3)
+  final <- structure.stage::fit_final_structure_gbm(
+    data, base::c("height", "cover", "bt_diff"), folds, tune_grid = grid
+  )
+  analysis <- structure.stage::analyze_structure_predictions(final, data$records)
+  testthat::expect_s3_class(analysis, "structure_prediction_analysis")
+  testthat::expect_equal(base::nrow(analysis$points), base::nrow(data$records))
+  testthat::expect_equal(base::nrow(analysis$pairwise), 3L * base::nrow(data$records))
+  testthat::expect_equal(base::nrow(analysis$msf_se), base::nrow(data$records))
+  testthat::expect_setequal(analysis$pairwise_summary$class_a,
+                            base::c("msf", "msf", "se"))
+  result <- structure.stage::ablate_structure_gbm(
+    final, data$records, variables = base::c("height", "cover")
+  )
+  testthat::expect_s3_class(result, "structure_gbm_ablation")
+  testthat::expect_equal(base::nrow(result$point_changes), 4L * base::nrow(data$records))
+  testthat::expect_equal(base::nrow(result$average_changes), 16L)
+  testthat::expect_setequal(base::names(result$point_changes), base::c(
+    "point_id", "variable", "direction", "standard_deviation", "shift",
+    "original_value", "perturbed_value", "baseline_class", "perturbed_class",
+    "class_changed", "baseline_msf", "baseline_se", "baseline_si",
+    "perturbed_msf", "perturbed_se", "perturbed_si", "delta_msf", "delta_se", "delta_si"
+  ))
+  testthat::expect_true(base::all(base::abs(
+    result$point_changes$delta_msf + result$point_changes$delta_se + result$point_changes$delta_si
+  ) < 1e-8))
+  testthat::expect_setequal(result$msf_se_changes$baseline_group,
+                            base::c("all", "msf", "se", "si"))
+  model_path <- base::tempfile(fileext = ".rds")
+  base::on.exit(base::unlink(model_path), add = TRUE)
+  base::saveRDS(final, model_path)
+  from_rds <- structure.stage::ablate_structure_gbm(model_path, data$records, variables = "height")
+  testthat::expect_equal(base::nrow(from_rds$point_changes), 2L * base::nrow(data$records))
+  raw_analysis <- structure.stage::analyze_structure_predictions(final$model, data$records)
+  testthat::expect_equal(raw_analysis$points[, data$class_levels], analysis$points[, data$class_levels])
+  paths <- structure.stage::save_structure_ablation(result, base::tempdir(), "ablation-test")
+  base::on.exit(base::unlink(paths), add = TRUE)
+  testthat::expect_true(base::all(base::file.exists(paths)))
+  testthat::expect_error(
+    structure.stage::save_structure_ablation(result, base::tempdir(), "ablation-test"),
+    "already exist"
+  )
+  bad <- data$records
+  bad$height <- 1
+  testthat::expect_error(
+    structure.stage::ablate_structure_gbm(final, bad, reference_data = bad, variables = "height"),
+    "zero-variance"
+  )
+})
