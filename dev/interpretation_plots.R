@@ -375,10 +375,17 @@ plot_pdp_zmax_betweenness <- function(
 #' This alternative is useful when a ggplot object is needed for theming or
 #' composition. For the native pdp visualization, use plot_pdp_zmax_betweenness().
 plot_pdp_zmax_betweenness_surface <- function(
-    pdp_result, response = base::c("msf_minus_se", "p_msf", "p_se", "p_si")) {
+    pdp_result, response = base::c("msf_minus_se", "p_msf", "p_se", "p_si"),
+    labels = FALSE, label_every = 2L, transition_contour = TRUE) {
   response <- base::match.arg(response)
   if (!base::inherits(pdp_result, "zmax_betweenness_pdp")) {
     base::stop("pdp_result must come from pdp_zmax_betweenness(); rerun it after sourcing this script.", call. = FALSE)
+  }
+  if (!base::is.logical(labels) || base::length(labels) != 1L || base::is.na(labels) ||
+      !base::is.logical(transition_contour) || base::length(transition_contour) != 1L ||
+      base::is.na(transition_contour) || !base::is.numeric(label_every) ||
+      base::length(label_every) != 1L || base::is.na(label_every) || label_every < 1L) {
+    base::stop("labels and transition_contour must be TRUE/FALSE, and label_every must be at least 1.", call. = FALSE)
   }
   pdp_surface <- pdp_result$surface
   diverging <- identical(response, "msf_minus_se")
@@ -398,6 +405,32 @@ plot_pdp_zmax_betweenness_surface <- function(
       title = "Joint partial dependence of zmax and understory betweenness"
     ) +
     ggplot2::theme_minimal()
+  if (diverging && transition_contour) {
+    plot <- plot + ggplot2::geom_contour(
+      data = pdp_surface,
+      ggplot2::aes(
+        x = .data$understory_mean_betweenness, y = .data$zmax, z = .data[[response]]
+      ),
+      inherit.aes = FALSE, breaks = 0, color = "black", linewidth = 1
+    )
+  }
+  if (labels) {
+    x_values <- base::sort(base::unique(pdp_surface$understory_mean_betweenness))
+    y_values <- base::sort(base::unique(pdp_surface$zmax))
+    label_data <- pdp_surface[
+      pdp_surface$understory_mean_betweenness %in% x_values[base::seq(1L, base::length(x_values), by = label_every)] &
+        pdp_surface$zmax %in% y_values[base::seq(1L, base::length(y_values), by = label_every)],
+      , drop = FALSE
+    ]
+    label_data$value_label <- base::sprintf("%.2f", label_data[[response]])
+    plot <- plot + ggplot2::geom_text(
+      data = label_data,
+      ggplot2::aes(
+        x = .data$understory_mean_betweenness, y = .data$zmax, label = .data$value_label
+      ),
+      inherit.aes = FALSE, size = 3, color = "black"
+    )
+  }
   if (diverging) {
     plot + ggplot2::scale_fill_gradient2(
       low = "#3b4cc0", mid = "white", high = "#b40426", midpoint = 0,
