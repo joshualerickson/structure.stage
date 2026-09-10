@@ -176,13 +176,13 @@ plot_lime_prediction_audit <- function(explanations, max_cases = 12L) {
     base::stop("max_cases must be a positive integer.", call. = FALSE)
   }
   case_info <- base::unique(explanations[, base::c(
-    "case", "observed_class", "predicted_class", "confidence", "correct", "case_type", "model_r2"
+    "case", "label", "observed_class", "predicted_class", "confidence", "correct", "case_type", "model_r2"
   ), drop = FALSE])
   case_info <- case_info[base::order(case_info$case_type, case_info$observed_class,
     -case_info$confidence, case_info$case), , drop = FALSE]
   case_info <- utils::head(case_info, base::as.integer(max_cases))
   data <- explanations[explanations$case %in% case_info$case, , drop = FALSE]
-  data$direction <- ifelse(data$feature_weight >= 0, "Supports predicted class", "Contradicts predicted class")
+  data$direction <- ifelse(data$feature_weight >= 0, "Supports explained class", "Contradicts explained class")
   feature_order <- stats::aggregate(
     base::abs(data$feature_weight), by = base::list(feature = data$feature), FUN = base::mean
   )
@@ -194,6 +194,7 @@ plot_lime_prediction_audit <- function(explanations, max_cases = 12L) {
     "\nObserved: ", case_info$observed_class,
     " | Predicted: ", case_info$predicted_class,
     " | P(pred): ", base::sprintf("%.2f", case_info$confidence),
+    "\nExplained class: ", case_info$label,
     "\nLocal explanation fit (R²): ", base::sprintf("%.2f", case_info$model_r2)
   )
   data$case_label <- case_info$case_label[base::match(data$case, case_info$case)]
@@ -205,14 +206,14 @@ plot_lime_prediction_audit <- function(explanations, max_cases = 12L) {
     ggplot2::geom_col(width = 0.72) +
     ggplot2::facet_wrap(~case_label, ncol = 2, scales = "free_x") +
     ggplot2::scale_fill_manual(values = base::c(
-      "Supports predicted class" = "#3B7FB6",
-      "Contradicts predicted class" = "#C62828"
+      "Supports explained class" = "#3B7FB6",
+      "Contradicts explained class" = "#C62828"
     )) +
     ggplot2::labs(
       x = "Local LIME feature weight", y = NULL, fill = NULL,
       title = "Local explanations for correct and incorrect structural-stage predictions",
       caption = base::paste(
-        "Blue increases support for the stated predicted class; red decreases it.",
+        "Blue increases support for the stated explained class; red decreases it.",
         "Local explanation fit is surrogate R², not predictive accuracy."
       )
     ) +
