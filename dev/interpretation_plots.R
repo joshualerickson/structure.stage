@@ -335,11 +335,27 @@ pdp_zmax_betweenness <- function(
   output$msf_minus_se <- output$p_msf - output$p_se
   contrast <- msf
   contrast$yhat <- output$msf_minus_se
+  other_predictors <- base::setdiff(base::names(reference_data), variables)
+  numeric_other <- other_predictors[base::vapply(
+    reference_data[, other_predictors, drop = FALSE], base::is.numeric, logical(1L)
+  )]
+  reference_summary <- base::data.frame(
+    variable = numeric_other,
+    mean = base::vapply(reference_data[, numeric_other, drop = FALSE], base::mean, numeric(1L)),
+    median = base::vapply(reference_data[, numeric_other, drop = FALSE], stats::median, numeric(1L)),
+    standard_deviation = base::vapply(reference_data[, numeric_other, drop = FALSE], stats::sd, numeric(1L)),
+    minimum = base::vapply(reference_data[, numeric_other, drop = FALSE], base::min, numeric(1L)),
+    maximum = base::vapply(reference_data[, numeric_other, drop = FALSE], base::max, numeric(1L)),
+    row.names = NULL
+  )
   base::structure(
     base::list(
       surface = output,
       partials = base::list(msf = msf, se = se, si = si, msf_minus_se = contrast),
-      variables = variables
+      variables = variables,
+      grid = grid,
+      reference_n = base::nrow(reference_data),
+      reference_summary = reference_summary
     ),
     class = "zmax_betweenness_pdp"
   )
