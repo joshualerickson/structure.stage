@@ -240,8 +240,10 @@ pdp_zmax_betweenness <- function(
     reference_data = NULL,
     height_variable = "zmax",
     betweenness_variable = "understory_mean_betweenness",
-    grid_resolution = 25L,
-    reference_classes = base::c("msf", "se")) {
+    grid_resolution = 15L,
+    reference_classes = base::c("msf", "se"),
+    trim_outliers = TRUE,
+    chull = TRUE) {
   if (!requireNamespace("pdp", quietly = TRUE)) {
     base::stop("Install the pdp package first: install.packages('pdp').", call. = FALSE)
   }
@@ -270,6 +272,11 @@ pdp_zmax_betweenness <- function(
   if (!base::is.numeric(grid_resolution) || base::length(grid_resolution) != 1L ||
       base::is.na(grid_resolution) || grid_resolution < 2L) {
     base::stop("grid_resolution must be a single integer of at least 2.", call. = FALSE)
+  }
+  if (!base::is.logical(trim_outliers) || base::length(trim_outliers) != 1L ||
+      base::is.na(trim_outliers) || !base::is.logical(chull) ||
+      base::length(chull) != 1L || base::is.na(chull)) {
+    base::stop("trim_outliers and chull must each be TRUE or FALSE.", call. = FALSE)
   }
   if (!base::is.null(reference_classes) && ".outcome" %in% base::names(reference_data)) {
     reference_data <- reference_data[
@@ -302,6 +309,8 @@ pdp_zmax_betweenness <- function(
       which.class = base::match(class_name, caret_model$levels),
       prob = TRUE,
       grid.resolution = base::as.integer(grid_resolution),
+      trim.outliers = trim_outliers,
+      chull = chull,
       progress = "none"
     )
   }
@@ -330,7 +339,8 @@ pdp_zmax_betweenness <- function(
 #' For msf_minus_se, positive values favor MSF. This is a partial-dependence
 #' model response, not observed performance and not a causal response.
 plot_pdp_zmax_betweenness <- function(
-    pdp_result, response = base::c("msf_minus_se", "msf", "se", "si"), ...) {
+    pdp_result, response = base::c("msf_minus_se", "msf", "se", "si"),
+    levelplot = TRUE, contour = TRUE, ...) {
   response <- base::match.arg(response)
   if (!base::inherits(pdp_result, "zmax_betweenness_pdp")) {
     base::stop("pdp_result must come from pdp_zmax_betweenness(); rerun it after sourcing this script.", call. = FALSE)
@@ -344,7 +354,7 @@ plot_pdp_zmax_betweenness <- function(
     base::paste0("Partial dependence: P(", response, ")")
   }
   pdp::plotPartial(
-    object = pdp_result$partials[[response]], contour = TRUE,
+    object = pdp_result$partials[[response]], levelplot = levelplot, contour = contour,
     main = title, xlab = pdp_result$variables[[1L]], ylab = pdp_result$variables[[2L]], ...
   )
 }
