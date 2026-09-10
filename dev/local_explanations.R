@@ -100,14 +100,19 @@ select_lime_cases <- function(audit, n_per_group = 2L) {
 #' "si") when explanations for every class are required, recognizing that this
 #' creates three explanations per selected record.
 explain_lime_cases <- function(
-    model, data, selected_cases, n_features = 6L, n_permutations = 2000L,
-    labels = NULL, seed = 20260910L) {
+    model, data, selected_cases, background_data = NULL, n_features = 6L,
+    n_permutations = 2000L, labels = NULL, seed = 20260910L) {
   if (!requireNamespace("lime", quietly = TRUE)) {
     base::stop("Install the lime package first: install.packages('lime').", call. = FALSE)
   }
   resolved <- .resolve_lime_model(model)
   if (!base::is.data.frame(data) || base::length(base::setdiff(resolved$predictors, base::names(data)))) {
     base::stop("data must contain all fitted predictors.", call. = FALSE)
+  }
+  if (base::is.null(background_data)) background_data <- resolved$model$trainingData
+  if (!base::is.data.frame(background_data) ||
+      base::length(base::setdiff(resolved$predictors, base::names(background_data)))) {
+    base::stop("background_data must contain all fitted predictors; use the model training data.", call. = FALSE)
   }
   if (!base::is.data.frame(selected_cases) || !"row_id" %in% base::names(selected_cases) ||
       base::anyNA(selected_cases$row_id) || base::anyDuplicated(selected_cases$row_id)) {
@@ -122,8 +127,8 @@ explain_lime_cases <- function(
   if (base::any(indices < 1L | indices > base::nrow(data))) {
     base::stop("selected_cases$row_id is outside data.", call. = FALSE)
   }
-  background <- data[, resolved$predictors, drop = FALSE]
-  cases <- background[indices, , drop = FALSE]
+  background <- background_data[, resolved$predictors, drop = FALSE]
+  cases <- data[indices, resolved$predictors, drop = FALSE]
   case_ids <- base::paste0("row_", indices)
   base::rownames(cases) <- case_ids
   base::set.seed(seed)
