@@ -64,6 +64,13 @@ testthat::test_that("nested spatial CV supplies held-out predictions and a final
     base::c("accuracy", "kappa", "balanced_accuracy", "macro_f1", "log_loss", "brier_score"))
   testthat::expect_equal(base::nrow(result$metrics$per_class), 3L)
   testthat::expect_equal(base::nrow(result$fold_metrics), 18L)
+  height_performance <- structure.stage::evaluate_msf_se_height_bins(
+    result, data, height_variable = "height", bins = 3L
+  )
+  testthat::expect_equal(base::nrow(height_performance), 3L)
+  testthat::expect_equal(base::sum(height_performance$n), 2L * 72L)
+  testthat::expect_true(base::all(height_performance$balanced_accuracy >= 0 &
+                                  height_performance$balanced_accuracy <= 1))
   final <- structure.stage::fit_final_structure_gbm(
     data, base::c("height", "cover", "bt_diff"), outer, tune_grid = grid
   )
@@ -76,6 +83,33 @@ testthat::test_that("nested spatial CV supplies held-out predictions and a final
   testthat::expect_true(base::all(base::file.exists(paths)))
   testthat::expect_error(structure.stage::save_mscv_results(result, output, "mscv-test"),
                          "already exist")
+})
+
+testthat::test_that("fixed-height betweenness response retains all three outcomes", {
+  data <- synthetic_training()
+  grid <- base::expand.grid(n.trees = 10L, interaction.depth = 1L,
+                            shrinkage = 0.1, n.minobsinnode = 2L)
+  folds <- structure.stage::build_spatial_folds(data, 18, k = 3)
+  final <- structure.stage::fit_final_structure_gbm(
+    data, base::c("height", "cover", "bt_diff"), folds, tune_grid = grid
+  )
+  response <- structure.stage::analyze_msf_se_height_betweenness(
+    final, data$records, height_variable = "height", betweenness_variable = "bt_diff",
+    height_quantiles = base::c(0.25, 0.75),
+    betweenness_quantiles = base::c(0.1, 0.5, 0.9)
+  )
+  testthat::expect_s3_class(response, "structure_conditional_response")
+  testthat::expect_equal(base::nrow(response$response), 6L)
+  testthat::expect_equal(response$response$mean_probability_msf +
+                            response$response$mean_probability_se +
+                            response$response$mean_probability_si,
+                          base::rep(1, 6L), tolerance = 1e-8)
+  testthat::expect_equal(base::length(base::unique(response$response$height_value)), 2L)
+  testthat::expect_error(
+    structure.stage::analyze_msf_se_height_betweenness(
+      final, data$records, height_variable = "height", betweenness_variable = "height"
+    ), "distinct"
+  )
 })
 
 testthat::test_that("nested mode selects variables inside outer training partitions", {

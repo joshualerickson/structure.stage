@@ -268,6 +268,43 @@ Use `structure.stage::analyze_structure_predictions(final_model, newdata)` when
 you only need the three-class and pairwise competition tables. The file runner
 `dev/interpretation.R` provides `run_interpretation_files()` for model RDS and
 CSV inputs.
+
+### Betweenness at equal fixed heights
+
+To ask how understory betweenness changes the model response when height is held
+equal, use a fixed-height conditional response rather than the global ablation:
+
+```r
+fixed_height <- structure.stage::analyze_msf_se_height_betweenness(
+  final_model,
+  reference_data = final_training_records,
+  height_variable = "zmax",
+  betweenness_variable = "understory_mean_betweenness",
+  height_quantiles = c(0.25, 0.50, 0.75),
+  betweenness_quantiles = seq(0.05, 0.95, by = 0.05)
+)
+```
+
+At each requested height quantile, the function gives every reference record the
+same `zmax`, varies understory betweenness, preserves all other observed
+predictors, and averages the resulting probabilities. It therefore answers how
+the fitted model responds at equal heights, while retaining `P(si)` so a change
+in the MSF–SE contrast is not mistaken for an MSF transition when it is actually
+a shift to SI. It is a conditional model response, not held-out performance.
+
+For actual MSF–SE performance at comparable observed heights, use outer held-out
+predictions from nested CV:
+
+```r
+height_performance <- structure.stage::evaluate_msf_se_height_bins(
+  mscv, prepared, height_variable = "zmax", bins = 4L
+)
+```
+
+This reports MSF/SE recall and balanced accuracy within observed height bands.
+Use bands with adequate counts of both stand-derived classes. The plotting helpers
+in `dev/interpretation_plots.R` provide `plot_fixed_height_msf_se()`,
+`plot_fixed_height_probabilities()`, and `plot_msf_se_height_performance()`.
 The exact Erickson et al. citation and equivalence to the historical published
 method still need confirmation.
 
