@@ -152,3 +152,70 @@ summarize_lime_features <- function(explanations) {
   base::names(output)[3L] <- "mean_absolute_local_weight"
   output[base::order(output$case_type, -output$mean_absolute_local_weight), , drop = FALSE]
 }
+
+#' Plot LIME explanations with observed-versus-predicted case status.
+#'
+#' Blue bars increase the local surrogate's probability for the class being
+#' explained; red bars decrease it. Explanation fit is the local surrogate R2,
+#' not model accuracy. Cases with a low fit should be interpreted cautiously.
+plot_lime_prediction_audit <- function(explanations, max_cases = 12L) {
+  required <- base::c(
+    "case", "feature", "feature_weight", "label", "label_prob", "model_r2",
+    "observed_class", "predicted_class", "confidence", "correct", "case_type"
+  )
+  if (!base::is.data.frame(explanations) || base::length(base::setdiff(required, base::names(explanations)))) {
+    base::stop("explanations must come from explain_lime_cases().", call. = FALSE)
+  }
+  if (!base::is.numeric(max_cases) || base::length(max_cases) != 1L ||
+      base::is.na(max_cases) || max_cases < 1L) {
+    base::stop("max_cases must be a positive integer.", call. = FALSE)
+  }
+  case_info <- base::unique(explanations[, base::c(
+    "case", "observed_class", "predicted_class", "confidence", "correct", "case_type", "model_r2"
+  ), drop = FALSE])
+  case_info <- case_info[base::order(case_info$case_type, case_info$observed_class,
+    -case_info$confidence, case_info$case), , drop = FALSE]
+  case_info <- utils::head(case_info, base::as.integer(max_cases))
+  data <- explanations[explanations$case %in% case_info$case, , drop = FALSE]
+  data$direction <- ifelse(data$feature_weight >= 0, "Supports predicted class", "Contradicts predicted class")
+  feature_order <- stats::aggregate(
+    base::abs(data$feature_weight), by = base::list(feature = data$feature), FUN = base::mean
+  )
+  feature_order <- feature_order$feature[base::order(feature_order$x, decreasing = TRUE)]
+  data$feature <- base::factor(data$feature, levels = base::rev(feature_order))
+  status <- ifelse(case_info$correct, "CORRECT", "INCORRECT")
+  case_info$case_label <- base::paste0(
+    "[", status, "] ", case_info$case,
+    "\nObserved: ", case_info$observed_class,
+    " | Predicted: ", case_info$predicted_class,
+    " | P(pred): ", base::sprintf("%.2f", case_info$confidence),
+    "\nLocal explanation fit (R²): ", base::sprintf("%.2f", case_info$model_r2)
+  )
+  data$case_label <- case_info$case_label[base::match(data$case, case_info$case)]
+  data$case_label <- base::factor(data$case_label, levels = case_info$case_label)
+  ggplot2::ggplot(data, ggplot2::aes(
+    x = .data$feature_weight, y = .data$feature, fill = .data$direction
+  )) +
+    ggplot2::geom_vline(xintercept = 0, color = "grey40", linewidth = 0.35) +
+    ggplot2::geom_col(width = 0.72) +
+    ggplot2::facet_wrap(~case_label, ncol = 2, scales = "free_x") +
+    ggplot2::scale_fill_manual(values = base::c(
+      "Supports predicted class" = "#3B7FB6",
+      "Contradicts predicted class" = "#C62828"
+    )) +
+    ggplot2::labs(
+      x = "Local LIME feature weight", y = NULL, fill = NULL,
+      title = "Local explanations for correct and incorrect structural-stage predictions",
+      caption = base::paste(
+        "Blue increases support for the stated predicted class; red decreases it.",
+        "Local explanation fit is surrogate R², not predictive accuracy."
+      )
+    ) +
+    ggplot2::theme_classic(base_size = 11) +
+    ggplot2::theme(
+      legend.position = "bottom",
+      strip.background = ggplot2::element_rect(fill = "grey95", color = "grey65"),
+      strip.text = ggplot2::element_text(face = "bold", size = 8),
+      plot.caption = ggplot2::element_text(hjust = 0)
+    )
+}
