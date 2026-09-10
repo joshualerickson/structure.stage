@@ -280,7 +280,19 @@ pdp_zmax_betweenness <- function(
   if (!base::nrow(reference_data)) {
     base::stop("No reference rows remain after applying reference_classes.", call. = FALSE)
   }
-  reference_data <- reference_data[, predictors, drop = FALSE]
+  absent_from_model <- base::setdiff(variables, predictors)
+  if (base::length(absent_from_model)) {
+    base::warning(
+      base::paste0(
+        base::paste(absent_from_model, collapse = ", "),
+        " is not among the fitted model predictors; its partial-dependence response will be flat."
+      ), call. = FALSE
+    )
+  }
+  # pdp needs the partial-dependence variables in train even if a caret model
+  # records a narrower coefnames vector. caret::predict.train() ignores any
+  # additional columns when it creates predictions.
+  reference_data <- reference_data[, base::unique(base::c(predictors, variables)), drop = FALSE]
   probability <- function(class_name) {
     pdp::partial(
       object = caret_model,
