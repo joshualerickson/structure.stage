@@ -313,21 +313,53 @@ pdp_zmax_betweenness <- function(
   output$p_se <- se$yhat
   output$p_si <- si$yhat
   output$msf_minus_se <- output$p_msf - output$p_se
-  output
+  contrast <- msf
+  contrast$yhat <- output$msf_minus_se
+  base::structure(
+    base::list(
+      surface = output,
+      partials = base::list(msf = msf, se = se, si = si, msf_minus_se = contrast),
+      variables = variables
+    ),
+    class = "zmax_betweenness_pdp"
+  )
 }
 
-#' Plot a joint PDP surface from pdp_zmax_betweenness().
+#' Plot the actual pdp::partial result with pdp::plotPartial().
 #'
-#' Positive values of msf_minus_se favor MSF. The plot is a model response
-#' surface, not observed performance and not a causal response.
+#' For msf_minus_se, positive values favor MSF. This is a partial-dependence
+#' model response, not observed performance and not a causal response.
 plot_pdp_zmax_betweenness <- function(
-    pdp_surface, response = base::c("msf_minus_se", "p_msf", "p_se", "p_si")) {
+    pdp_result, response = base::c("msf_minus_se", "msf", "se", "si"), ...) {
   response <- base::match.arg(response)
-  required <- base::c("zmax", "understory_mean_betweenness", response)
-  if (!base::is.data.frame(pdp_surface) ||
-      base::length(base::setdiff(required, base::names(pdp_surface)))) {
-    base::stop("pdp_surface must be the result of pdp_zmax_betweenness() using the default variable names.", call. = FALSE)
+  if (!base::inherits(pdp_result, "zmax_betweenness_pdp")) {
+    base::stop("pdp_result must come from pdp_zmax_betweenness(); rerun it after sourcing this script.", call. = FALSE)
   }
+  if (!requireNamespace("pdp", quietly = TRUE)) {
+    base::stop("Install the pdp package first: install.packages('pdp').", call. = FALSE)
+  }
+  title <- if (identical(response, "msf_minus_se")) {
+    "Partial dependence: P(msf) - P(se)"
+  } else {
+    base::paste0("Partial dependence: P(", response, ")")
+  }
+  pdp::plotPartial(
+    object = pdp_result$partials[[response]], contour = TRUE,
+    main = title, xlab = pdp_result$variables[[1L]], ylab = pdp_result$variables[[2L]], ...
+  )
+}
+
+#' Plot the same joint PDP result with ggplot for reports.
+#'
+#' This alternative is useful when a ggplot object is needed for theming or
+#' composition. For the native pdp visualization, use plot_pdp_zmax_betweenness().
+plot_pdp_zmax_betweenness_surface <- function(
+    pdp_result, response = base::c("msf_minus_se", "p_msf", "p_se", "p_si")) {
+  response <- base::match.arg(response)
+  if (!base::inherits(pdp_result, "zmax_betweenness_pdp")) {
+    base::stop("pdp_result must come from pdp_zmax_betweenness(); rerun it after sourcing this script.", call. = FALSE)
+  }
+  pdp_surface <- pdp_result$surface
   diverging <- identical(response, "msf_minus_se")
   plot <- ggplot2::ggplot(pdp_surface, ggplot2::aes(
     x = .data$understory_mean_betweenness, y = .data$zmax, fill = .data[[response]]
