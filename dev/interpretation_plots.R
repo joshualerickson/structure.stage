@@ -351,10 +351,25 @@ pdp_zmax_betweenness <- function(
 #' model response, not observed performance and not a causal response.
 plot_pdp_zmax_betweenness <- function(
     pdp_result, response = base::c("msf_minus_se", "msf", "se", "si"),
-    levelplot = TRUE, contour = TRUE, ...) {
+    levelplot = TRUE, contour = TRUE, label_values = FALSE, label_every = 2L, ...) {
   response <- base::match.arg(response)
   if (!base::inherits(pdp_result, "zmax_betweenness_pdp")) {
     base::stop("pdp_result must come from pdp_zmax_betweenness(); rerun it after sourcing this script.", call. = FALSE)
+  }
+  if (!base::is.logical(label_values) || base::length(label_values) != 1L || base::is.na(label_values)) {
+    base::stop("label_values must be TRUE or FALSE.", call. = FALSE)
+  }
+  # Numeric labels are unreadable when projected onto a wireframe. When
+  # requested, retain this public helper but return a labeled 2-D surface.
+  if (label_values) {
+    surface_response <- base::switch(response,
+      msf_minus_se = "msf_minus_se", msf = "p_msf", se = "p_se", si = "p_si"
+    )
+    return(plot_pdp_zmax_betweenness_surface(
+      pdp_result, response = surface_response, labels = TRUE,
+      label_every = label_every,
+      transition_contour = identical(response, "msf_minus_se")
+    ))
   }
   if (!requireNamespace("pdp", quietly = TRUE)) {
     base::stop("Install the pdp package first: install.packages('pdp').", call. = FALSE)
