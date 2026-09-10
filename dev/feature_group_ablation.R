@@ -87,6 +87,22 @@ run_feature_group_ablation <- function(
     removed <- base::intersect(resolved$predictors, variants[[index]])
     predictors <- base::setdiff(resolved$predictors, removed)
     if (!base::length(predictors)) base::stop("A feature group removed every predictor.", call. = FALSE)
+    # caret's GBM interface errors for a one-predictor multiclass fit. Keep the
+    # valid group-drop comparisons running and report this zmax-only candidate
+    # explicitly instead of aborting the full ablation.
+    if (base::length(predictors) < 2L) {
+      performance[[index]] <- base::data.frame(
+        candidate = base::names(variants)[[index]],
+        predictors_removed = base::paste(removed, collapse = ", "),
+        predictors_retained = base::length(predictors),
+        status = "not_fitted_caret_gbm_requires_at_least_two_predictors",
+        balanced_accuracy = NA_real_, macro_f1 = NA_real_, log_loss = NA_real_,
+        recall_msf = NA_real_, recall_se = NA_real_, recall_si = NA_real_,
+        row.names = NULL
+      )
+      models[[index]] <- NULL
+      next
+    }
     base::set.seed(seed)
     fitted <- caret::train(
       x = training_data[, predictors, drop = FALSE], y = training_y,
@@ -102,6 +118,7 @@ run_feature_group_ablation <- function(
       candidate = base::names(variants)[[index]],
       predictors_removed = base::paste(removed, collapse = ", "),
       predictors_retained = base::length(predictors),
+      status = "fitted",
       metrics,
       row.names = NULL
     )
