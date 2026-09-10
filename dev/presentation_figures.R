@@ -191,3 +191,104 @@ save_heldout_se_prediction_profiles <- function(
   ggplot2::ggsave(path, plot = figure, width = width, height = height, dpi = dpi, bg = "white")
   base::normalizePath(path, winslash = "/", mustWork = FALSE)
 }
+
+#' Plot held-out predictor profiles for one observed structural-stage class.
+#'
+#' @param audit Result from audit_structure_predictions() applied to held-out
+#'   data. Its row_id values must index data.
+#' @param data The held-out records used to create audit.
+#' @param observed_class One of msf, se, or si.
+#' @param metrics Numeric predictors to compare.
+#' @return A ggplot object.
+plot_heldout_class_prediction_profiles <- function(
+    audit, data, observed_class,
+    metrics = base::c(
+      "midstory_mean_degree", "n_gt_6_1", "n_strata_low_mid",
+      "understory_mean_betweenness", "zmax"
+    )) {
+  classes <- base::c("msf", "se", "si")
+  if (!base::is.character(observed_class) || base::length(observed_class) != 1L ||
+      !observed_class %in% classes) {
+    base::stop("observed_class must be one of msf, se, or si.", call. = FALSE)
+  }
+  required <- base::c("row_id", "observed_class", "predicted_class")
+  if (!base::is.data.frame(audit) || base::length(base::setdiff(required, base::names(audit))) ||
+      !base::is.data.frame(data) || base::length(base::setdiff(metrics, base::names(data)))) {
+    base::stop("audit and data must contain the required prediction columns and requested metrics.", call. = FALSE)
+  }
+  class_audit <- audit[audit$observed_class == observed_class, , drop = FALSE]
+  if (!base::nrow(class_audit) || base::anyNA(class_audit$row_id) ||
+      base::any(class_audit$row_id < 1L | class_audit$row_id > base::nrow(data))) {
+    base::stop("audit must contain valid row_id values for the observed class.", call. = FALSE)
+  }
+  values <- data[base::as.integer(class_audit$row_id), metrics, drop = FALSE]
+  class_display <- base::toupper(observed_class)
+  group <- ifelse(
+    class_audit$predicted_class == observed_class,
+    base::paste("Correct", class_display),
+    base::paste0(class_display, " predicted as ", base::toupper(class_audit$predicted_class))
+  )
+  prediction_order <- base::c(observed_class, classes[classes != observed_class])
+  group_levels <- base::c(
+    base::paste("Correct", class_display),
+    base::paste0(class_display, " predicted as ", base::toupper(prediction_order[prediction_order != observed_class]))
+  )
+  group_counts <- base::table(group)
+  group_levels <- group_levels[group_levels %in% base::names(group_counts)]
+  group_labels <- base::paste0(group_levels, "\n(n = ", base::unname(group_counts[group_levels]), ")")
+  group <- base::factor(group, levels = group_levels, labels = group_labels)
+  long <- base::data.frame(
+    prediction_group = base::rep(group, times = base::length(metrics)),
+    feature = base::rep(metrics, each = base::nrow(values)),
+    value = base::unlist(values, use.names = FALSE),
+    row.names = NULL
+  )
+  long$feature <- base::factor(long$feature, levels = metrics)
+  class_colors <- base::c(msf = "#D55E00", se = "#009E73", si = "#0072B2")
+  color_values <- base::vapply(group_levels, function(label) {
+    if (identical(label, base::paste("Correct", class_display))) return("#666666")
+    predicted <- base::tolower(base::sub(base::paste0("^", class_display, " predicted as "), "", label))
+    class_colors[[predicted]]
+  }, character(1L))
+  if (base::anyNA(color_values)) {
+    base::stop("Could not assign colors to one or more predicted classes.", call. = FALSE)
+  }
+  base::names(color_values) <- group_labels
+  ggplot2::ggplot(long, ggplot2::aes(
+    x = .data$prediction_group, y = .data$value, fill = .data$prediction_group
+  )) +
+    ggplot2::geom_boxplot(width = 0.66, outlier.alpha = 0.25, linewidth = 0.35) +
+    ggplot2::facet_wrap(~feature, scales = "free_y", ncol = 3) +
+    ggplot2::scale_fill_manual(values = color_values) +
+    ggplot2::labs(
+      x = NULL, y = "Observed predictor value",
+      title = base::paste("Held-out", class_display, "records: correct and incorrect model predictions"),
+      caption = "Boxes summarize held-out records; colors identify the model prediction."
+    ) +
+    ggplot2::theme_classic(base_size = 12) +
+    ggplot2::theme(
+      legend.position = "none",
+      strip.background = ggplot2::element_rect(fill = "grey95", color = "grey45"),
+      strip.text = ggplot2::element_text(face = "bold", size = 9),
+      axis.text.x = ggplot2::element_text(angle = 20, hjust = 1),
+      plot.caption = ggplot2::element_text(hjust = 0)
+    )
+}
+
+#' Save a held-out structural-stage predictor profile comparison as a PNG.
+#'
+#' @inheritParams plot_heldout_class_prediction_profiles
+#' @param path PNG file path to create.
+#' @param width,height Output dimensions in inches.
+#' @param dpi Output resolution.
+#' @return The normalized output path, invisibly.
+save_heldout_class_prediction_profiles <- function(
+    audit, data, observed_class, path, metrics = base::c(
+      "midstory_mean_degree", "n_gt_6_1", "n_strata_low_mid",
+      "understory_mean_betweenness", "zmax"
+    ), width = 11, height = 8, dpi = 400) {
+  if (!base::dir.exists(base::dirname(path))) base::dir.create(base::dirname(path), recursive = TRUE)
+  figure <- plot_heldout_class_prediction_profiles(audit, data, observed_class, metrics)
+  ggplot2::ggsave(path, plot = figure, width = width, height = height, dpi = dpi, bg = "white")
+  base::normalizePath(path, winslash = "/", mustWork = FALSE)
+}
