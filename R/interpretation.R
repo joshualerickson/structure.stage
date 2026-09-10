@@ -64,7 +64,10 @@
 }
 
 .interpretation_probabilities <- function(resolved, newdata) {
-  probabilities <- stats::predict(
+  # Use caret's exported method directly. stats::predict() can fail to discover
+  # predict.train() when a train object is restored from RDS without caret being
+  # attached in the caller's session.
+  probabilities <- caret::predict.train(
     resolved$caret_model, newdata = newdata[, resolved$predictors, drop = FALSE], type = "prob"
   )
   .numeric_columns(probabilities, resolved$class_levels)
