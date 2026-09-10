@@ -253,6 +253,9 @@ pdp_zmax_betweenness <- function(
   } else if (base::inherits(model, "train") && base::identical(model$method, "gbm")) {
     caret_model <- model
     predictors <- model$coefnames
+    if (base::is.null(predictors) || !base::length(predictors)) {
+      predictors <- base::setdiff(base::names(model$trainingData), ".outcome")
+    }
   } else {
     base::stop("model must be a structure_gbm bundle, caret GBM train object, or an RDS path.", call. = FALSE)
   }
@@ -295,18 +298,21 @@ pdp_zmax_betweenness <- function(
   # records a narrower coefnames vector. caret::predict.train() ignores any
   # additional columns when it creates predictions.
   reference_data <- reference_data[, base::unique(base::c(predictors, variables)), drop = FALSE]
+  height_values <- base::unique(stats::quantile(
+    reference_data[[height_variable]], probs = grid_quantiles, names = FALSE, type = 7
+  ))
+  betweenness_values <- base::unique(stats::quantile(
+    reference_data[[betweenness_variable]], probs = grid_quantiles, names = FALSE, type = 7
+  ))
+  if (base::length(height_values) < 2L || base::length(betweenness_values) < 2L) {
+    base::stop("The requested grid has fewer than two distinct observed values for zmax or understory betweenness.", call. = FALSE)
+  }
   grid <- base::expand.grid(
-    stats::quantile(reference_data[[height_variable]], probs = grid_quantiles,
-      names = FALSE, type = 7),
-    stats::quantile(reference_data[[betweenness_variable]], probs = grid_quantiles,
-      names = FALSE, type = 7),
+    height_values,
+    betweenness_values,
     KEEP.OUT.ATTRS = FALSE, stringsAsFactors = FALSE
   )
   base::names(grid) <- variables
-  if (base::anyDuplicated(grid[[height_variable]]) ||
-      base::anyDuplicated(grid[[betweenness_variable]])) {
-    base::stop("grid_quantiles produce duplicate observed values; use fewer quantiles.", call. = FALSE)
-  }
   probability <- function(class_name) {
     pdp::partial(
       object = caret_model,
