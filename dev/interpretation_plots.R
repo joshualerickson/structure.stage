@@ -237,10 +237,11 @@ plot_msf_se_height_performance <- function(height_performance) {
 # Install once if needed: install.packages("pdp")
 pdp_zmax_betweenness <- function(
     model,
-    reference_data,
+    reference_data = NULL,
     height_variable = "zmax",
     betweenness_variable = "understory_mean_betweenness",
-    grid_resolution = 25L) {
+    grid_resolution = 25L,
+    reference_classes = base::c("msf", "se")) {
   if (!requireNamespace("pdp", quietly = TRUE)) {
     base::stop("Install the pdp package first: install.packages('pdp').", call. = FALSE)
   }
@@ -255,13 +256,29 @@ pdp_zmax_betweenness <- function(
     base::stop("model must be a structure_gbm bundle, caret GBM train object, or an RDS path.", call. = FALSE)
   }
   variables <- base::c(height_variable, betweenness_variable)
-  if (!base::is.data.frame(reference_data) ||
-      base::length(base::setdiff(base::c(predictors, variables), base::names(reference_data)))) {
-    base::stop("reference_data must contain every selected predictor, zmax, and understory betweenness.", call. = FALSE)
+  if (base::is.null(reference_data)) reference_data <- caret_model$trainingData
+  if (!base::is.data.frame(reference_data)) {
+    base::stop("reference_data is NULL but the model does not retain trainingData; supply the complete training predictor data.", call. = FALSE)
+  }
+  missing <- base::setdiff(base::c(predictors, variables), base::names(reference_data))
+  if (base::length(missing)) {
+    base::stop(
+      "reference_data is missing selected predictor(s): ", base::paste(missing, collapse = ", "),
+      ". Supply the complete model training data, not a zmax/betweenness-only table.", call. = FALSE
+    )
   }
   if (!base::is.numeric(grid_resolution) || base::length(grid_resolution) != 1L ||
       base::is.na(grid_resolution) || grid_resolution < 2L) {
     base::stop("grid_resolution must be a single integer of at least 2.", call. = FALSE)
+  }
+  if (!base::is.null(reference_classes) && ".outcome" %in% base::names(reference_data)) {
+    reference_data <- reference_data[
+      base::as.character(reference_data$.outcome) %in% reference_classes,
+      , drop = FALSE
+    ]
+  }
+  if (!base::nrow(reference_data)) {
+    base::stop("No reference rows remain after applying reference_classes.", call. = FALSE)
   }
   reference_data <- reference_data[, predictors, drop = FALSE]
   probability <- function(class_name) {
