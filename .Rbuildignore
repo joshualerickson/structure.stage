@@ -1,0 +1,7 @@
+^AGENTS\.md$
+^CONTEXT\.md$
+^dev$
+^\.agents$
+^\.codex$
+^.*\.Rcheck$
+^.*\.tar\.gz$

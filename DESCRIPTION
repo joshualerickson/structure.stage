@@ -1,0 +1,25 @@
+Package: structure.stage
+Title: Spatial Workflows for Vegetation Structural-Stage Classification
+Version: 0.1.0
+Authors@R: person("Josh", "Erickson", email = "joshualerickson@gmail.com", role = c("aut", "cre"))
+Description: Prepare stand-derived training samples, construct spatially grouped
+    resamples, and fit gradient boosting models with spatial forward feature
+    selection. Provides explicit data contracts and reproducible model bundles
+    for extending a LiDAR vegetation structural-stage training workflow.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Depends: R (>= 4.1.0)
+Imports:
+    CAST (>= 1.0.3),
+    caret (>= 7.0.1),
+    gbm (>= 2.2.2),
+    sf,
+    stats,
+    utils,
+    withr
+Suggests:
+    roxygen2,
+    testthat (>= 3.2.0)
+Config/testthat/edition: 3
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
