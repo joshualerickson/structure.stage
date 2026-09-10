@@ -105,3 +105,89 @@ save_presentation_fixed_height_probabilities <- function(
   ggplot2::ggsave(path, plot = figure, width = width, height = height, dpi = dpi, bg = "white")
   base::normalizePath(path, winslash = "/", mustWork = FALSE)
 }
+
+#' Plot held-out SE predictor distributions by model outcome.
+#'
+#' @param audit Result from audit_structure_predictions() applied to held-out
+#'   data. Its row_id values must index data.
+#' @param data The held-out records used to create audit.
+#' @param metrics Numeric predictors to compare.
+#' @return A ggplot object.
+plot_heldout_se_prediction_profiles <- function(
+    audit, data,
+    metrics = base::c(
+      "midstory_mean_degree", "n_gt_6_1", "n_strata_low_mid",
+      "understory_mean_betweenness", "zmax"
+    )) {
+  required <- base::c("row_id", "observed_class", "predicted_class")
+  if (!base::is.data.frame(audit) || base::length(base::setdiff(required, base::names(audit))) ||
+      !base::is.data.frame(data) || base::length(base::setdiff(metrics, base::names(data)))) {
+    base::stop("audit and data must contain the required prediction columns and requested metrics.", call. = FALSE)
+  }
+  se_audit <- audit[audit$observed_class == "se", , drop = FALSE]
+  if (!base::nrow(se_audit) || base::anyNA(se_audit$row_id) ||
+      base::any(se_audit$row_id < 1L | se_audit$row_id > base::nrow(data))) {
+    base::stop("audit must contain valid held-out SE row_id values.", call. = FALSE)
+  }
+  values <- data[base::as.integer(se_audit$row_id), metrics, drop = FALSE]
+  group <- ifelse(
+    se_audit$predicted_class == "se", "Correct SE",
+    base::paste0("SE predicted as ", base::toupper(se_audit$predicted_class))
+  )
+  preferred_order <- base::c("Correct SE", "SE predicted as MSF", "SE predicted as SI")
+  group_counts <- base::table(group)
+  group_levels <- preferred_order[preferred_order %in% base::names(group_counts)]
+  group_labels <- base::paste0(group_levels, "\n(n = ", base::unname(group_counts[group_levels]), ")")
+  group <- base::factor(group, levels = group_levels, labels = group_labels)
+  long <- base::data.frame(
+    prediction_group = base::rep(group, times = base::length(metrics)),
+    feature = base::rep(metrics, each = base::nrow(values)),
+    value = base::unlist(values, use.names = FALSE),
+    row.names = NULL
+  )
+  long$feature <- base::factor(long$feature, levels = metrics)
+  colors <- base::c(
+    "Correct SE" = "#666666",
+    "SE predicted as MSF" = "#D55E00",
+    "SE predicted as SI" = "#0072B2"
+  )
+  color_values <- colors[group_levels]
+  base::names(color_values) <- group_labels
+  ggplot2::ggplot(long, ggplot2::aes(
+    x = .data$prediction_group, y = .data$value, fill = .data$prediction_group
+  )) +
+    ggplot2::geom_boxplot(width = 0.66, outlier.alpha = 0.25, linewidth = 0.35) +
+    ggplot2::facet_wrap(~feature, scales = "free_y", ncol = 3) +
+    ggplot2::scale_fill_manual(values = color_values) +
+    ggplot2::labs(
+      x = NULL, y = "Observed predictor value",
+      title = "Held-out SE records: correct and incorrect model predictions",
+      caption = "Boxes summarize held-out records; colors identify the model prediction."
+    ) +
+    ggplot2::theme_classic(base_size = 12) +
+    ggplot2::theme(
+      legend.position = "none",
+      strip.background = ggplot2::element_rect(fill = "grey95", color = "grey45"),
+      strip.text = ggplot2::element_text(face = "bold", size = 9),
+      axis.text.x = ggplot2::element_text(angle = 20, hjust = 1),
+      plot.caption = ggplot2::element_text(hjust = 0)
+    )
+}
+
+#' Save the held-out SE predictor comparison as a PNG.
+#'
+#' @inheritParams plot_heldout_se_prediction_profiles
+#' @param path PNG file path to create.
+#' @param width,height Output dimensions in inches.
+#' @param dpi Output resolution.
+#' @return The normalized output path, invisibly.
+save_heldout_se_prediction_profiles <- function(
+    audit, data, path, metrics = base::c(
+      "midstory_mean_degree", "n_gt_6_1", "n_strata_low_mid",
+      "understory_mean_betweenness", "zmax"
+    ), width = 11, height = 8, dpi = 400) {
+  if (!base::dir.exists(base::dirname(path))) base::dir.create(base::dirname(path), recursive = TRUE)
+  figure <- plot_heldout_se_prediction_profiles(audit, data, metrics = metrics)
+  ggplot2::ggsave(path, plot = figure, width = width, height = height, dpi = dpi, bg = "white")
+  base::normalizePath(path, winslash = "/", mustWork = FALSE)
+}
