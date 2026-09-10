@@ -351,13 +351,18 @@ pdp_zmax_betweenness <- function(
 #' model response, not observed performance and not a causal response.
 plot_pdp_zmax_betweenness <- function(
     pdp_result, response = base::c("msf_minus_se", "msf", "se", "si"),
-    levelplot = TRUE, contour = TRUE, label_values = FALSE, label_every = 2L, ...) {
+    levelplot = TRUE, contour = TRUE, label_values = FALSE, label_every = 2L,
+    show_axis_values = TRUE, scales = NULL, ...) {
   response <- base::match.arg(response)
   if (!base::inherits(pdp_result, "zmax_betweenness_pdp")) {
     base::stop("pdp_result must come from pdp_zmax_betweenness(); rerun it after sourcing this script.", call. = FALSE)
   }
   if (!base::is.logical(label_values) || base::length(label_values) != 1L || base::is.na(label_values)) {
     base::stop("label_values must be TRUE or FALSE.", call. = FALSE)
+  }
+  if (!base::is.logical(show_axis_values) || base::length(show_axis_values) != 1L ||
+      base::is.na(show_axis_values)) {
+    base::stop("show_axis_values must be TRUE or FALSE.", call. = FALSE)
   }
   # Numeric labels are unreadable when projected onto a wireframe. When
   # requested, retain this public helper but return a labeled 2-D surface.
@@ -379,9 +384,19 @@ plot_pdp_zmax_betweenness <- function(
   } else {
     base::paste0("Partial dependence: P(", response, ")")
   }
+  if (base::is.null(scales) && show_axis_values && !levelplot) {
+    partial <- pdp_result$partials[[response]]
+    scales <- base::list(
+      arrows = FALSE,
+      x = base::list(at = base::pretty(partial[[pdp_result$variables[[1L]]]], n = 5L)),
+      y = base::list(at = base::pretty(partial[[pdp_result$variables[[2L]]]], n = 5L)),
+      z = base::list(at = base::pretty(partial$yhat, n = 5L))
+    )
+  }
   pdp::plotPartial(
     object = pdp_result$partials[[response]], levelplot = levelplot, contour = contour,
-    main = title, xlab = pdp_result$variables[[1L]], ylab = pdp_result$variables[[2L]], ...
+    main = title, xlab = pdp_result$variables[[1L]], ylab = pdp_result$variables[[2L]],
+    scales = scales, ...
   )
 }
 
