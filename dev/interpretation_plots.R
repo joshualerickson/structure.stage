@@ -298,9 +298,9 @@ pdp_zmax_betweenness <- function(
       object = caret_model,
       pred.var = variables,
       train = reference_data,
-      pred.fun = function(object, newdata) {
-        caret::predict.train(object, newdata = newdata, type = "prob")[[class_name]]
-      },
+      type = "classification",
+      which.class = base::match(class_name, caret_model$levels),
+      prob = TRUE,
       grid.resolution = base::as.integer(grid_resolution),
       progress = "none"
     )
