@@ -160,6 +160,10 @@ Keep large training inputs and run artifacts outside installed package contents.
 
 Do not commit raw LiDAR, large raster stacks, extracted patches, model weights, or credentials unless explicitly intended and legally permitted.
 
+### Repository data and artifact policy
+
+Do not commit or push spatial data in any format unless the project owner explicitly requests it. This includes rasters, vector files, GeoPackages, shapefiles and their sidecars, and tabular files such as CSVs that contain coordinates, geometries, stable spatial identifiers, or other location-reconstructable fields. Keep training and validation data, model objects, rendered plots, EDA products, maps, report HTML/PDF files, and other generated run artifacts local by default. Commit only reusable code, documentation, schemas, metadata templates, and small non-spatial aggregate summaries unless the owner specifically authorizes an artifact for version control.
+
 ---
 
 ## Later model-comparison sequence

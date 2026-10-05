@@ -8,6 +8,10 @@ Data preparation is partly manual because user-provided inputs have different sc
 
 The earlier CNN proposal remains a possible extension after the baseline is reproducible. It does not replace the original modeling objective or require migrating the core package to Python.
 
+## Repository data and artifact policy
+
+Spatial data stay local unless the project owner explicitly authorizes a commit or push. This includes rasters, vector data, GeoPackages, shapefiles and sidecars, and coordinate-bearing or otherwise location-reconstructable tables such as CSVs. Training and validation records, model objects, plots, maps, EDA, rendered reports, and generated run artifacts also stay local by default. Version control is for reusable code, documentation, schemas, metadata templates, and small non-spatial aggregate summaries.
+
 ## Observed training behavior in `dev/legacy/lynx_model.R`
 
 This section audits the original script, not a verification of historical data or results. `dev/lynx_model.R` is now a thin package-based file runner.
