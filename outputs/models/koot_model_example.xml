@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <title>KNF rule-model polygons with LiDAR structural-stage summaries</title>
+        <pubdate>20261001</pubdate>
+        <origin>Joshua Erickson</origin>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>Polygon dataset retaining mapped KNF habitat and vegetation attributes, existing structural-stage outputs, and within-polygon summaries of LiDAR structural-stage classes and uncertainty.</abstract>
+      <purpose>Provide a spatial comparison between the existing KNF rule-based product and LiDAR structural-stage outputs for map review and project screening.</purpose>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <sngdate>
+          <caldate>20261001</caldate>
+        </sngdate>
+      </timeinfo>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>As needed</update>
+    </status>
+    <spdom>
+      <bounding>
+        <westbc>-115.146985</westbc>
+        <eastbc>-114.933672</eastbc>
+        <northbc>48.703678</northbc>
+        <southbc>48.537014</southbc>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>None</themekt>
+        <themekey>LiDAR</themekey>
+        <themekey>vegetation structure</themekey>
+        <themekey>structural stage</themekey>
+        <themekey>lynx habitat</themekey>
+        <themekey>MSF</themekey>
+        <themekey>Stem Exclusion</themekey>
+        <themekey>Stand Initiation</themekey>
+      </theme>
+    </keywords>
+    <accconst>None</accconst>
+    <useconst>Use for broad-scale map comparison, reconnaissance prioritization, and QA. It does not replace project-level field verification or Forest Plan/NRLMD requirements.</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntper>Joshua Erickson</cntper>
+        <cntemail>joshualerickson@gmail.com</cntemail>
+      </cntinfo>
+    </ptcontac>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>See lineage and attribute definitions.</attraccr>
+    </attracc>
+    <lineage>
+      <procstep>
+        <procdesc>Prepared from supplied KNF model polygons and joined LiDAR structural-stage summary attributes. Source mapped-vegetation attribute definitions and update history remain governed by the originating KNF data documentation.</procdesc>
+        <procdate>20261001</procdate>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <spref>
+    <horizsys>
+      <planar>
+        <mapproj>
+          <mapprojn>Universal Transverse Mercator</mapprojn>
+          <gridsys>
+            <gridsysn>Universal Transverse Mercator</gridsysn>
+            <utmzone>11</utmzone>
+          </gridsys>
+        </mapproj>
+        <planci>
+          <plance>row and column</plance>
+          <coordrep>Coordinate pairs</coordrep>
+          <plandu>meters</plandu>
+        </planci>
+      </planar>
+      <geodetic>
+        <horizdn>North American Datum of 1983</horizdn>
+        <ellips>GRS 1980</ellips>
+      </geodetic>
+    </horizsys>
+  </spref>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>koot_model_example</enttypl>
+        <enttypd>KNF rule-model polygons with retained mapped vegetation and habitat attributes plus summarized LiDAR structural-stage comparison attributes.</enttypd>
+      </enttyp>
+      <attr>
+        <attrlabl>fid_lynxha</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>forest_id</attrlabl>
+        <attrdef>Forest or stand identifier retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>acres</attrlabl>
+        <attrdef>Polygon area in acres retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lifeform</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>dom_mid_40</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>dom_mid_60</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>dom_grp_60</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>treecanopy</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>canopyperc</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>treesize</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>avedbh</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>elev</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>asp_cls</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>slope</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>mortalityp</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>statlink</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>ipknf_dom_</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>ipknf_dom1</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>ipknf_do_1</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>ipknf_do_2</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>ipknf_do_3</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>ipknf_do_4</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>ipknf_do_5</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>ipknf_do_6</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>ipknf_do_7</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>ipknf_do_8</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>ipknf_do_9</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>ipknf_d_10</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>ipknf_d_11</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>py_pv</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>py_jones</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>habitat_fs</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>habitat_jo</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>habitat_co</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>habitat_so</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>structural</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>orig_fid</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>fid_lau</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>perimeter</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lau_</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lau_id</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lau</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>name</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>arc_acres</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>py_acres</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lautu20acr</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>st_area_sh</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>st_perimet</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>r01_knf_r0</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_pix</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>msf_share</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>se_share</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>si_share</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>winner</attrlabl>
+        <attrdef>Structural stage with the largest within-polygon LiDAR vote or share.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>winner_share</attrlabl>
+        <attrdef>Within-polygon share associated with the winning LiDAR structural stage.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>runnerup_share</attrlabl>
+        <attrdef>Within-polygon share associated with the second-ranked LiDAR structural stage.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>margin</attrlabl>
+        <attrdef>Difference between winner and runner-up LiDAR structural-stage shares.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>vote_entropy</attrlabl>
+        <attrdef>Entropy of within-polygon LiDAR structural-stage shares.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>vote_entropy_norm</attrlabl>
+        <attrdef>Normalized entropy of within-polygon LiDAR structural-stage shares.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+    </detailed>
+  </eainfo>
+  <metainfo>
+    <metd>20261001</metd>
+    <metstdn>FGDC Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001-1998</metstdv>
+    <ptcontac>
+      <cntinfo>
+        <cntper>Joshua Erickson</cntper>
+        <cntemail>joshualerickson@gmail.com</cntemail>
+      </cntinfo>
+    </ptcontac>
+  </metainfo>
+</metadata>

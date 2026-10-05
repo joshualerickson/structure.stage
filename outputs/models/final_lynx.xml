@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <title>Final LiDAR structural-stage training points</title>
+        <pubdate>20261001</pubdate>
+        <origin>Joshua Erickson</origin>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>Point records assembled for LiDAR structural-stage model development. Each record carries a source structural-stage label. The layer supports model development and provenance review; labels are stand-derived and do not represent independently observed pixel-level truth.</abstract>
+      <purpose>Provide the final point-based training inputs and source labels for the LiDAR structural-stage modeling workflow.</purpose>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <sngdate>
+          <caldate>20261001</caldate>
+        </sngdate>
+      </timeinfo>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>As needed</update>
+    </status>
+    <spdom>
+      <bounding>
+        <westbc>-115.243802</westbc>
+        <eastbc>-114.740132</eastbc>
+        <northbc>48.901698</northbc>
+        <southbc>48.554846</southbc>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>None</themekt>
+        <themekey>LiDAR</themekey>
+        <themekey>vegetation structure</themekey>
+        <themekey>structural stage</themekey>
+        <themekey>lynx habitat</themekey>
+        <themekey>MSF</themekey>
+        <themekey>Stem Exclusion</themekey>
+        <themekey>Stand Initiation</themekey>
+      </theme>
+    </keywords>
+    <accconst>None</accconst>
+    <useconst>Use for model-development provenance and documented retraining workflows. Do not use as independent pixel-scale validation data.</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntper>Joshua Erickson</cntper>
+        <cntemail>joshualerickson@gmail.com</cntemail>
+      </cntinfo>
+    </ptcontac>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>See lineage and attribute definitions.</attraccr>
+    </attracc>
+    <lineage>
+      <procstep>
+        <procdesc>Compiled from final structural-stage preparation outputs. The combined layer contains 30,170 points, including source-specific subsets. Training-data provenance gaps, including stable polygon identifiers and acquisition metadata, remain documented limitations.</procdesc>
+        <procdate>20261001</procdate>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <spref>
+    <horizsys>
+      <planar>
+        <mapproj>
+          <mapprojn>Universal Transverse Mercator</mapprojn>
+          <gridsys>
+            <gridsysn>Universal Transverse Mercator</gridsysn>
+            <utmzone>11</utmzone>
+          </gridsys>
+        </mapproj>
+        <planci>
+          <plance>row and column</plance>
+          <coordrep>Coordinate pairs</coordrep>
+          <plandu>meters</plandu>
+        </planci>
+      </planar>
+      <geodetic>
+        <horizdn>North American Datum of 1983</horizdn>
+        <ellips>GRS 1980</ellips>
+      </geodetic>
+    </horizsys>
+  </spref>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>final_ksanka_structure</enttypl>
+        <enttypd>Point records from the Ksanka structural-stage training source, carrying the source structural-stage label.</enttypd>
+      </enttyp>
+      <attr>
+        <attrlabl>structure_stage</attrlabl>
+        <attrdef>Structural-stage class assigned to this point or predicted for this location.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>final_ksanka_fnf_structure</enttypl>
+        <enttypd>Point records from the Ksanka/FNF structural-stage training source, carrying the source structural-stage label.</enttypd>
+      </enttyp>
+      <attr>
+        <attrlabl>structure_stage</attrlabl>
+        <attrdef>Structural-stage class assigned to this point or predicted for this location.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>final_lynx_structure</enttypl>
+        <enttypd>Combined final structural-stage training point records used to develop the LiDAR model.</enttypd>
+      </enttyp>
+      <attr>
+        <attrlabl>structure_stage</attrlabl>
+        <attrdef>Structural-stage class assigned to this point or predicted for this location.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+    </detailed>
+  </eainfo>
+  <metainfo>
+    <metd>20261001</metd>
+    <metstdn>FGDC Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001-1998</metstdv>
+    <ptcontac>
+      <cntinfo>
+        <cntper>Joshua Erickson</cntper>
+        <cntemail>joshualerickson@gmail.com</cntemail>
+      </cntinfo>
+    </ptcontac>
+  </metainfo>
+</metadata>

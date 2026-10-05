@@ -43,7 +43,7 @@ save_presentation_pdp_3d <- function(
     pdp_result, response = response, levelplot = FALSE, contour = FALSE,
     drape = TRUE, colorkey = TRUE,
     col.regions = palette,
-    screen = base::list(z = -55, x = -65, y = 0),
+    screen = base::list(z = -20, x = -65, y = 0),
     scales = base::list(arrows = FALSE, distance = base::c(1.2, 1.2, 1.4)),
     zlab = response_label,
     par.settings = lattice::simpleTheme(col = "grey20", lwd = 0.6)

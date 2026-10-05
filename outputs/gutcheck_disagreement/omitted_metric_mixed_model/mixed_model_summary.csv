@@ -1,0 +1,3 @@
+"model","n","metrics","aic","delta_aic_from_baseline","tjur_r2","singular_fit","spatial_blocks","spatial_random_effect_retained"
+"baseline_error_model",528,NA,733.389159780721,0,0.013278682919121,NA,6,FALSE
+"joint_omitted_metric_diagnostic",528,"understory_mean_degree; bt_diff; understory_eigen_ratio; n_gt_12_1; understory_mean_strength; pzabovezmean",667.058309772481,-66.3308500082392,0.154804437883345,NA,6,FALSE
