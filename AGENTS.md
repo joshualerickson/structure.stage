@@ -32,6 +32,16 @@ After the R workflow is reproducible, evaluate whether learned LiDAR raster neig
 
 For that experiment, each patch is centered on a sampled location carrying its source stand's label and produces one class probability vector. No independently observed wall-to-wall pixel-level class raster is assumed.
 
+## Current interpretation workflow
+
+The `interpretation` branch adds three-class GBM behavior diagnostics for final
+models. `ablate_structure_gbm()` changes one selected predictor at a time by
+plus/minus a reference-data standard deviation while holding all other predictors
+fixed. It reports point-level probability changes, average changes, class
+transitions, and a focused `msf` minus `se` contrast. These diagnostics describe
+conditional model behavior; they are not causal effects and must not be reported
+as independent predictive performance. Use `run_mscv_gbm()` for performance.
+
 ---
 
 ## Non-negotiable interpretation rules

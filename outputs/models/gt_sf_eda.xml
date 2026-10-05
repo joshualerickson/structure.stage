@@ -1,0 +1,2552 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <title>KNF gut-check surveys and LiDAR structural-stage comparison</title>
+        <pubdate>20261001</pubdate>
+        <origin>Joshua Erickson</origin>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>Wildlife-survey point records with field and existing rule-model calls, LiDAR structural metrics, and LiDAR class probabilities. Derived audit layers identify agreement/disagreement categories and uncertainty for the eligible three-class MSF/SE/SI comparison.</abstract>
+      <purpose>Support external geographic validation, map QA, reconnaissance prioritization, and review of rule-model versus LiDAR structural-stage disagreement.</purpose>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <sngdate>
+          <caldate>20261001</caldate>
+        </sngdate>
+      </timeinfo>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>As needed</update>
+    </status>
+    <spdom>
+      <bounding>
+        <westbc>-115.145217</westbc>
+        <eastbc>-114.932754</eastbc>
+        <northbc>48.700915</northbc>
+        <southbc>48.538967</southbc>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>None</themekt>
+        <themekey>LiDAR</themekey>
+        <themekey>vegetation structure</themekey>
+        <themekey>structural stage</themekey>
+        <themekey>lynx habitat</themekey>
+        <themekey>MSF</themekey>
+        <themekey>Stem Exclusion</themekey>
+        <themekey>Stand Initiation</themekey>
+      </theme>
+    </keywords>
+    <accconst>None</accconst>
+    <useconst>Use eligible_3class to select records appropriate for three-class metric reporting. Review provenance, survey protocol, field notes, imagery, disturbance history, and map vintage before project decisions.</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntper>Joshua Erickson</cntper>
+        <cntemail>joshualerickson@gmail.com</cntemail>
+      </cntinfo>
+    </ptcontac>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>See lineage and attribute definitions.</attraccr>
+    </attracc>
+    <lineage>
+      <procstep>
+        <procdesc>The base gt_sf_eda layer contains 1,207 supplied survey records. The derived audit layers join 528 records eligible for direct three-class comparison by GlobalID. Records with non-comparable rule categories, such as Other, Early Stand Initiation, or No Habitat, are retained in the all-record audit layer but have no three-class comparison outcome.</procdesc>
+        <procdate>20261001</procdate>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <spref>
+    <horizsys>
+      <planar>
+        <mapproj>
+          <mapprojn>Universal Transverse Mercator</mapprojn>
+          <gridsys>
+            <gridsysn>Universal Transverse Mercator</gridsysn>
+            <utmzone>11</utmzone>
+          </gridsys>
+        </mapproj>
+        <planci>
+          <plance>row and column</plance>
+          <coordrep>Coordinate pairs</coordrep>
+          <plandu>meters</plandu>
+        </planci>
+      </planar>
+      <geodetic>
+        <horizdn>North American Datum of 1983</horizdn>
+        <ellips>GRS 1980</ellips>
+      </geodetic>
+    </horizsys>
+  </spref>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>gt_sf_eda</enttypl>
+        <enttypd>Gut-check wildlife-survey points with source field calls, existing rule-model calls, LiDAR probabilities, and LiDAR structural metrics.</enttypd>
+      </enttyp>
+      <attr>
+        <attrlabl>Surveyor</attrlabl>
+        <attrdef>Surveyor identifier retained from the source wildlife survey record.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>TimeStamp</attrlabl>
+        <attrdef>Date or timestamp retained from the source wildlife survey record.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Lynx_Model</attrlabl>
+        <attrdef>Existing rule-model structural-stage call retained from the source record.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Lynx_Field</attrlabl>
+        <attrdef>Recorded field structural-stage call retained from the source record.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Recom_Acti</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Exclusion_</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Lynx_Comme</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>GrizSpring</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Snags_Pres</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Misc_Comme</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>GlobalID</attrlabl>
+        <attrdef>Source-record globally unique identifier used to join survey and model records.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>msf</attrlabl>
+        <attrdef>LiDAR GBM probability for Multi-Story Foraging (MSF).</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>se</attrlabl>
+        <attrdef>LiDAR GBM probability for Stem Exclusion (SE).</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>si</attrlabl>
+        <attrdef>LiDAR GBM probability for Stand Initiation (SI).</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>structure_stage</attrlabl>
+        <attrdef>Structural-stage class assigned to this point or predicted for this location.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>LAI</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>LAD_max</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>LAD_mean</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>LAD_z_max</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>fractional_canopy_cover</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>rumple_index</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_trees</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>trees_per_acre</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_low</attrlabl>
+        <attrdef>LiDAR-derived vertical-stratum count or density metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_low_mid</attrlabl>
+        <attrdef>LiDAR-derived low-to-mid vertical stratum metric used by the final GBM.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_mid</attrlabl>
+        <attrdef>LiDAR-derived vertical-stratum count or density metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_mid_upper</attrlabl>
+        <attrdef>LiDAR-derived vertical-stratum count or density metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_upper</attrlabl>
+        <attrdef>LiDAR-derived vertical-stratum count or density metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_gt_6_1</attrlabl>
+        <attrdef>LiDAR-derived measure of vegetation above 6.1 meters, used by the final GBM.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_gt_12_1</attrlabl>
+        <attrdef>LiDAR-derived vegetation-above-height-threshold metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_gt_24_1</attrlabl>
+        <attrdef>LiDAR-derived vegetation-above-height-threshold metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>topo_residual_sd</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>topo_entropy</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>smoothness_score</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_m2</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zmax</attrlabl>
+        <attrdef>Maximum LiDAR-derived vegetation height, in meters.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zmean</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zsd</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zskew</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zkurt</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zentropy</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>pzabovezmean</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zquantile_pc1</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_degree</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_strength</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_betweenness</attrlabl>
+        <attrdef>LiDAR-derived understory connectivity metric used by the final GBM.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_closeness</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_n_components</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_avg_path_length</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_eigen_ratio</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_graph_density</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_n_m2</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_abs_sa</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_degree</attrlabl>
+        <attrdef>LiDAR-derived midstory connectivity metric used by the final GBM.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_strength</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_betweenness</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_closeness</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_n_components</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_avg_path_length</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_eigen_ratio</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_graph_density</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_abs_sa</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_n_m2</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>bt_diff</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>graph_metrics_pca1</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>review</attrlabl>
+        <attrdef>Source review flag retained from the gut-check dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>gt_sf_eda_handout_audit</enttypl>
+        <enttypd>All gut-check points with derived agreement, disagreement, class-transition, and LiDAR uncertainty attributes used in the stakeholder handout.</enttypd>
+      </enttyp>
+      <attr>
+        <attrlabl>Surveyor</attrlabl>
+        <attrdef>Surveyor identifier retained from the source wildlife survey record.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>TimeStamp</attrlabl>
+        <attrdef>Date or timestamp retained from the source wildlife survey record.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Lynx_Model</attrlabl>
+        <attrdef>Existing rule-model structural-stage call retained from the source record.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Lynx_Field</attrlabl>
+        <attrdef>Recorded field structural-stage call retained from the source record.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Recom_Acti</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Exclusion_</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Lynx_Comme</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>GrizSpring</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Snags_Pres</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Misc_Comme</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>GlobalID</attrlabl>
+        <attrdef>Source-record globally unique identifier used to join survey and model records.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>msf</attrlabl>
+        <attrdef>LiDAR GBM probability for Multi-Story Foraging (MSF).</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>se</attrlabl>
+        <attrdef>LiDAR GBM probability for Stem Exclusion (SE).</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>si</attrlabl>
+        <attrdef>LiDAR GBM probability for Stand Initiation (SI).</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>structure_stage</attrlabl>
+        <attrdef>Structural-stage class assigned to this point or predicted for this location.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>LAI</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>LAD_max</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>LAD_mean</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>LAD_z_max</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>fractional_canopy_cover</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>rumple_index</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_trees</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>trees_per_acre</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_low</attrlabl>
+        <attrdef>LiDAR-derived vertical-stratum count or density metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_low_mid</attrlabl>
+        <attrdef>LiDAR-derived low-to-mid vertical stratum metric used by the final GBM.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_mid</attrlabl>
+        <attrdef>LiDAR-derived vertical-stratum count or density metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_mid_upper</attrlabl>
+        <attrdef>LiDAR-derived vertical-stratum count or density metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_upper</attrlabl>
+        <attrdef>LiDAR-derived vertical-stratum count or density metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_gt_6_1</attrlabl>
+        <attrdef>LiDAR-derived measure of vegetation above 6.1 meters, used by the final GBM.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_gt_12_1</attrlabl>
+        <attrdef>LiDAR-derived vegetation-above-height-threshold metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_gt_24_1</attrlabl>
+        <attrdef>LiDAR-derived vegetation-above-height-threshold metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>topo_residual_sd</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>topo_entropy</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>smoothness_score</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_m2</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zmax</attrlabl>
+        <attrdef>Maximum LiDAR-derived vegetation height, in meters.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zmean</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zsd</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zskew</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zkurt</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zentropy</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>pzabovezmean</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zquantile_pc1</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_degree</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_strength</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_betweenness</attrlabl>
+        <attrdef>LiDAR-derived understory connectivity metric used by the final GBM.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_closeness</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_n_components</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_avg_path_length</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_eigen_ratio</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_graph_density</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_n_m2</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_abs_sa</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_degree</attrlabl>
+        <attrdef>LiDAR-derived midstory connectivity metric used by the final GBM.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_strength</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_betweenness</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_closeness</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_n_components</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_avg_path_length</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_eigen_ratio</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_graph_density</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_abs_sa</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_n_m2</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>bt_diff</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>graph_metrics_pca1</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>review</attrlabl>
+        <attrdef>Source review flag retained from the gut-check dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>field_stage</attrlabl>
+        <attrdef>Recorded field stage harmonized to msf, se, or si for the three-class comparison.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>rule_stage</attrlabl>
+        <attrdef>Existing rule-model stage harmonized to msf, se, or si for the three-class comparison.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lidar_stage</attrlabl>
+        <attrdef>LiDAR GBM predicted stage: msf, se, or si.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>eligible_3class</attrlabl>
+        <attrdef>TRUE when recorded field, rule-model, and LiDAR stages are all available in the three-class comparison.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>review_status</attrlabl>
+        <attrdef>Review provenance stratum derived from the source review flag.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>comparison_outcome</attrlabl>
+        <attrdef>Agreement category relative to the recorded field call: both correct, one model correct, or both wrong.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>models_agree</attrlabl>
+        <attrdef>TRUE when the harmonized rule-model and LiDAR stages are identical among eligible records.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>rule_matches_field</attrlabl>
+        <attrdef>TRUE when the harmonized rule-model stage matches the recorded field stage among eligible records.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lidar_matches_field</attrlabl>
+        <attrdef>TRUE when the LiDAR stage matches the recorded field stage among eligible records.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>rule_to_lidar</attrlabl>
+        <attrdef>Directional transition from the harmonized rule-model stage to the LiDAR stage.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>field_rule_lidar</attrlabl>
+        <attrdef>Recorded field stage plus rule-to-LiDAR directional transition.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lidar_confidence</attrlabl>
+        <attrdef>Largest LiDAR class probability.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lidar_entropy</attrlabl>
+        <attrdef>Normalized Shannon entropy of LiDAR class probabilities; 0 is concentrated and 1 is evenly distributed.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lidar_margin</attrlabl>
+        <attrdef>Largest LiDAR class probability minus the second-largest probability.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>gt_sf_eda_eligible_3class</enttypl>
+        <enttypd>Subset of gut-check points eligible for the three-class MSF/SE/SI comparison; includes the handout audit attributes.</enttypd>
+      </enttyp>
+      <attr>
+        <attrlabl>Surveyor</attrlabl>
+        <attrdef>Surveyor identifier retained from the source wildlife survey record.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>TimeStamp</attrlabl>
+        <attrdef>Date or timestamp retained from the source wildlife survey record.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Lynx_Model</attrlabl>
+        <attrdef>Existing rule-model structural-stage call retained from the source record.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Lynx_Field</attrlabl>
+        <attrdef>Recorded field structural-stage call retained from the source record.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Recom_Acti</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Exclusion_</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Lynx_Comme</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>GrizSpring</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Snags_Pres</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Misc_Comme</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>GlobalID</attrlabl>
+        <attrdef>Source-record globally unique identifier used to join survey and model records.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>msf</attrlabl>
+        <attrdef>LiDAR GBM probability for Multi-Story Foraging (MSF).</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>se</attrlabl>
+        <attrdef>LiDAR GBM probability for Stem Exclusion (SE).</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>si</attrlabl>
+        <attrdef>LiDAR GBM probability for Stand Initiation (SI).</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>structure_stage</attrlabl>
+        <attrdef>Structural-stage class assigned to this point or predicted for this location.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>LAI</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>LAD_max</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>LAD_mean</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>LAD_z_max</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>fractional_canopy_cover</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>rumple_index</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_trees</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>trees_per_acre</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_low</attrlabl>
+        <attrdef>LiDAR-derived vertical-stratum count or density metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_low_mid</attrlabl>
+        <attrdef>LiDAR-derived low-to-mid vertical stratum metric used by the final GBM.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_mid</attrlabl>
+        <attrdef>LiDAR-derived vertical-stratum count or density metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_mid_upper</attrlabl>
+        <attrdef>LiDAR-derived vertical-stratum count or density metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_upper</attrlabl>
+        <attrdef>LiDAR-derived vertical-stratum count or density metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_gt_6_1</attrlabl>
+        <attrdef>LiDAR-derived measure of vegetation above 6.1 meters, used by the final GBM.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_gt_12_1</attrlabl>
+        <attrdef>LiDAR-derived vegetation-above-height-threshold metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_gt_24_1</attrlabl>
+        <attrdef>LiDAR-derived vegetation-above-height-threshold metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>topo_residual_sd</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>topo_entropy</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>smoothness_score</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_m2</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zmax</attrlabl>
+        <attrdef>Maximum LiDAR-derived vegetation height, in meters.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zmean</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zsd</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zskew</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zkurt</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zentropy</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>pzabovezmean</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zquantile_pc1</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_degree</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_strength</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_betweenness</attrlabl>
+        <attrdef>LiDAR-derived understory connectivity metric used by the final GBM.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_closeness</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_n_components</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_avg_path_length</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_eigen_ratio</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_graph_density</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_n_m2</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_abs_sa</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_degree</attrlabl>
+        <attrdef>LiDAR-derived midstory connectivity metric used by the final GBM.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_strength</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_betweenness</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_closeness</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_n_components</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_avg_path_length</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_eigen_ratio</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_graph_density</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_abs_sa</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_n_m2</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>bt_diff</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>graph_metrics_pca1</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>review</attrlabl>
+        <attrdef>Source review flag retained from the gut-check dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>field_stage</attrlabl>
+        <attrdef>Recorded field stage harmonized to msf, se, or si for the three-class comparison.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>rule_stage</attrlabl>
+        <attrdef>Existing rule-model stage harmonized to msf, se, or si for the three-class comparison.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lidar_stage</attrlabl>
+        <attrdef>LiDAR GBM predicted stage: msf, se, or si.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>eligible_3class</attrlabl>
+        <attrdef>TRUE when recorded field, rule-model, and LiDAR stages are all available in the three-class comparison.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>review_status</attrlabl>
+        <attrdef>Review provenance stratum derived from the source review flag.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>comparison_outcome</attrlabl>
+        <attrdef>Agreement category relative to the recorded field call: both correct, one model correct, or both wrong.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>models_agree</attrlabl>
+        <attrdef>TRUE when the harmonized rule-model and LiDAR stages are identical among eligible records.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>rule_matches_field</attrlabl>
+        <attrdef>TRUE when the harmonized rule-model stage matches the recorded field stage among eligible records.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lidar_matches_field</attrlabl>
+        <attrdef>TRUE when the LiDAR stage matches the recorded field stage among eligible records.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>rule_to_lidar</attrlabl>
+        <attrdef>Directional transition from the harmonized rule-model stage to the LiDAR stage.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>field_rule_lidar</attrlabl>
+        <attrdef>Recorded field stage plus rule-to-LiDAR directional transition.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lidar_confidence</attrlabl>
+        <attrdef>Largest LiDAR class probability.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lidar_entropy</attrlabl>
+        <attrdef>Normalized Shannon entropy of LiDAR class probabilities; 0 is concentrated and 1 is evenly distributed.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lidar_margin</attrlabl>
+        <attrdef>Largest LiDAR class probability minus the second-largest probability.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>gt_sf_eda_eligible_3class_landsat</enttypl>
+        <enttypd>Eligible three-class gut-check points with an extracted value from the 30-meter Landsat summer-to-fall difference raster.</enttypd>
+      </enttyp>
+      <attr>
+        <attrlabl>Surveyor</attrlabl>
+        <attrdef>Surveyor identifier retained from the source wildlife survey record.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>TimeStamp</attrlabl>
+        <attrdef>Date or timestamp retained from the source wildlife survey record.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Lynx_Model</attrlabl>
+        <attrdef>Existing rule-model structural-stage call retained from the source record.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Lynx_Field</attrlabl>
+        <attrdef>Recorded field structural-stage call retained from the source record.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Recom_Acti</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Exclusion_</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Lynx_Comme</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>GrizSpring</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Snags_Pres</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Misc_Comme</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>GlobalID</attrlabl>
+        <attrdef>Source-record globally unique identifier used to join survey and model records.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>msf</attrlabl>
+        <attrdef>LiDAR GBM probability for Multi-Story Foraging (MSF).</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>se</attrlabl>
+        <attrdef>LiDAR GBM probability for Stem Exclusion (SE).</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>si</attrlabl>
+        <attrdef>LiDAR GBM probability for Stand Initiation (SI).</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>structure_stage</attrlabl>
+        <attrdef>Structural-stage class assigned to this point or predicted for this location.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>LAI</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>LAD_max</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>LAD_mean</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>LAD_z_max</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>fractional_canopy_cover</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>rumple_index</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_trees</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>trees_per_acre</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_low</attrlabl>
+        <attrdef>LiDAR-derived vertical-stratum count or density metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_low_mid</attrlabl>
+        <attrdef>LiDAR-derived low-to-mid vertical stratum metric used by the final GBM.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_mid</attrlabl>
+        <attrdef>LiDAR-derived vertical-stratum count or density metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_mid_upper</attrlabl>
+        <attrdef>LiDAR-derived vertical-stratum count or density metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_upper</attrlabl>
+        <attrdef>LiDAR-derived vertical-stratum count or density metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_gt_6_1</attrlabl>
+        <attrdef>LiDAR-derived measure of vegetation above 6.1 meters, used by the final GBM.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_gt_12_1</attrlabl>
+        <attrdef>LiDAR-derived vegetation-above-height-threshold metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_gt_24_1</attrlabl>
+        <attrdef>LiDAR-derived vegetation-above-height-threshold metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>topo_residual_sd</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>topo_entropy</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>smoothness_score</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_m2</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zmax</attrlabl>
+        <attrdef>Maximum LiDAR-derived vegetation height, in meters.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zmean</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zsd</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zskew</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zkurt</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zentropy</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>pzabovezmean</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zquantile_pc1</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_degree</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_strength</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_betweenness</attrlabl>
+        <attrdef>LiDAR-derived understory connectivity metric used by the final GBM.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_closeness</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_n_components</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_avg_path_length</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_eigen_ratio</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_graph_density</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_n_m2</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_abs_sa</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_degree</attrlabl>
+        <attrdef>LiDAR-derived midstory connectivity metric used by the final GBM.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_strength</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_betweenness</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_closeness</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_n_components</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_avg_path_length</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_eigen_ratio</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_graph_density</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_abs_sa</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_n_m2</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>bt_diff</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>graph_metrics_pca1</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>review</attrlabl>
+        <attrdef>Source review flag retained from the gut-check dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>field_stage</attrlabl>
+        <attrdef>Recorded field stage harmonized to msf, se, or si for the three-class comparison.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>rule_stage</attrlabl>
+        <attrdef>Existing rule-model stage harmonized to msf, se, or si for the three-class comparison.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lidar_stage</attrlabl>
+        <attrdef>LiDAR GBM predicted stage: msf, se, or si.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>eligible_3class</attrlabl>
+        <attrdef>TRUE when recorded field, rule-model, and LiDAR stages are all available in the three-class comparison.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>review_status</attrlabl>
+        <attrdef>Review provenance stratum derived from the source review flag.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>comparison_outcome</attrlabl>
+        <attrdef>Agreement category relative to the recorded field call: both correct, one model correct, or both wrong.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>models_agree</attrlabl>
+        <attrdef>TRUE when the harmonized rule-model and LiDAR stages are identical among eligible records.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>rule_matches_field</attrlabl>
+        <attrdef>TRUE when the harmonized rule-model stage matches the recorded field stage among eligible records.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lidar_matches_field</attrlabl>
+        <attrdef>TRUE when the LiDAR stage matches the recorded field stage among eligible records.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>rule_to_lidar</attrlabl>
+        <attrdef>Directional transition from the harmonized rule-model stage to the LiDAR stage.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>field_rule_lidar</attrlabl>
+        <attrdef>Recorded field stage plus rule-to-LiDAR directional transition.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lidar_confidence</attrlabl>
+        <attrdef>Largest LiDAR class probability.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lidar_entropy</attrlabl>
+        <attrdef>Normalized Shannon entropy of LiDAR class probabilities; 0 is concentrated and 1 is evenly distributed.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lidar_margin</attrlabl>
+        <attrdef>Largest LiDAR class probability minus the second-largest probability.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>landsat8_summer_fall_diff</attrlabl>
+        <attrdef>Value extracted at the point from landsat8_summer_fall_diff_R1_30m.tif, a 30-meter WGS84 Landsat summer-to-fall difference raster.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>landsat_extract_status</attrlabl>
+        <attrdef>Extraction status: extracted, or no_data_or_outside_raster.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>gt_sf_eda_eligible_3class_landsat_mean5x5</enttypl>
+        <enttypd>Eligible three-class gut-check points with the mean of a 5 by 5 Landsat summer-to-fall difference raster neighborhood centered on each point.</enttypd>
+      </enttyp>
+      <attr>
+        <attrlabl>Surveyor</attrlabl>
+        <attrdef>Surveyor identifier retained from the source wildlife survey record.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>TimeStamp</attrlabl>
+        <attrdef>Date or timestamp retained from the source wildlife survey record.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Lynx_Model</attrlabl>
+        <attrdef>Existing rule-model structural-stage call retained from the source record.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Lynx_Field</attrlabl>
+        <attrdef>Recorded field structural-stage call retained from the source record.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Recom_Acti</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Exclusion_</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Lynx_Comme</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>GrizSpring</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Snags_Pres</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Misc_Comme</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>GlobalID</attrlabl>
+        <attrdef>Source-record globally unique identifier used to join survey and model records.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>msf</attrlabl>
+        <attrdef>LiDAR GBM probability for Multi-Story Foraging (MSF).</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>se</attrlabl>
+        <attrdef>LiDAR GBM probability for Stem Exclusion (SE).</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>si</attrlabl>
+        <attrdef>LiDAR GBM probability for Stand Initiation (SI).</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>structure_stage</attrlabl>
+        <attrdef>Structural-stage class assigned to this point or predicted for this location.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>LAI</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>LAD_max</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>LAD_mean</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>LAD_z_max</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>fractional_canopy_cover</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>rumple_index</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_trees</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>trees_per_acre</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_low</attrlabl>
+        <attrdef>LiDAR-derived vertical-stratum count or density metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_low_mid</attrlabl>
+        <attrdef>LiDAR-derived low-to-mid vertical stratum metric used by the final GBM.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_mid</attrlabl>
+        <attrdef>LiDAR-derived vertical-stratum count or density metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_mid_upper</attrlabl>
+        <attrdef>LiDAR-derived vertical-stratum count or density metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_upper</attrlabl>
+        <attrdef>LiDAR-derived vertical-stratum count or density metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_gt_6_1</attrlabl>
+        <attrdef>LiDAR-derived measure of vegetation above 6.1 meters, used by the final GBM.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_gt_12_1</attrlabl>
+        <attrdef>LiDAR-derived vegetation-above-height-threshold metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_gt_24_1</attrlabl>
+        <attrdef>LiDAR-derived vegetation-above-height-threshold metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>topo_residual_sd</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>topo_entropy</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>smoothness_score</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_m2</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zmax</attrlabl>
+        <attrdef>Maximum LiDAR-derived vegetation height, in meters.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zmean</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zsd</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zskew</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zkurt</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zentropy</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>pzabovezmean</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zquantile_pc1</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_degree</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_strength</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_betweenness</attrlabl>
+        <attrdef>LiDAR-derived understory connectivity metric used by the final GBM.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_closeness</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_n_components</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_avg_path_length</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_eigen_ratio</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_graph_density</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_n_m2</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_abs_sa</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_degree</attrlabl>
+        <attrdef>LiDAR-derived midstory connectivity metric used by the final GBM.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_strength</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_betweenness</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_closeness</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_n_components</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_avg_path_length</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_eigen_ratio</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_graph_density</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_abs_sa</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_n_m2</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>bt_diff</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>graph_metrics_pca1</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>review</attrlabl>
+        <attrdef>Source review flag retained from the gut-check dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>field_stage</attrlabl>
+        <attrdef>Recorded field stage harmonized to msf, se, or si for the three-class comparison.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>rule_stage</attrlabl>
+        <attrdef>Existing rule-model stage harmonized to msf, se, or si for the three-class comparison.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lidar_stage</attrlabl>
+        <attrdef>LiDAR GBM predicted stage: msf, se, or si.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>eligible_3class</attrlabl>
+        <attrdef>TRUE when recorded field, rule-model, and LiDAR stages are all available in the three-class comparison.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>review_status</attrlabl>
+        <attrdef>Review provenance stratum derived from the source review flag.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>comparison_outcome</attrlabl>
+        <attrdef>Agreement category relative to the recorded field call: both correct, one model correct, or both wrong.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>models_agree</attrlabl>
+        <attrdef>TRUE when the harmonized rule-model and LiDAR stages are identical among eligible records.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>rule_matches_field</attrlabl>
+        <attrdef>TRUE when the harmonized rule-model stage matches the recorded field stage among eligible records.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lidar_matches_field</attrlabl>
+        <attrdef>TRUE when the LiDAR stage matches the recorded field stage among eligible records.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>rule_to_lidar</attrlabl>
+        <attrdef>Directional transition from the harmonized rule-model stage to the LiDAR stage.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>field_rule_lidar</attrlabl>
+        <attrdef>Recorded field stage plus rule-to-LiDAR directional transition.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lidar_confidence</attrlabl>
+        <attrdef>Largest LiDAR class probability.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lidar_entropy</attrlabl>
+        <attrdef>Normalized Shannon entropy of LiDAR class probabilities; 0 is concentrated and 1 is evenly distributed.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lidar_margin</attrlabl>
+        <attrdef>Largest LiDAR class probability minus the second-largest probability.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>landsat8_summer_fall_diff_mean_5x5</attrlabl>
+        <attrdef>Mean of the 5 by 5 raster-cell window centered on the point, extracted from landsat8_summer_fall_diff_R1_30m.tif. At nominal 30-meter resolution, the window is 150 by 150 meters.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>landsat_mean5x5_valid_cells</attrlabl>
+        <attrdef>Number of non-missing raster cells contributing to the 5 by 5 Landsat neighborhood mean; a complete window contains 25 cells.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>landsat_mean5x5_status</attrlabl>
+        <attrdef>Five-by-five neighborhood extraction status: extracted_all_25_cells, extracted_partial_window, or no_data_or_outside_raster.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>gt_sf_eda_eligible_3class_koot_polygon</enttypl>
+        <enttypd>Eligible three-class gut-check points spatially joined to Kootenai rule-model polygons and polygon-summarized LiDAR structural-stage classes for polygon-level performance comparison.</enttypd>
+      </enttyp>
+      <attr>
+        <attrlabl>Surveyor</attrlabl>
+        <attrdef>Surveyor identifier retained from the source wildlife survey record.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>TimeStamp</attrlabl>
+        <attrdef>Date or timestamp retained from the source wildlife survey record.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Lynx_Model</attrlabl>
+        <attrdef>Existing rule-model structural-stage call retained from the source record.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Lynx_Field</attrlabl>
+        <attrdef>Recorded field structural-stage call retained from the source record.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Recom_Acti</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Exclusion_</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Lynx_Comme</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>GrizSpring</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Snags_Pres</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>Misc_Comme</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>GlobalID</attrlabl>
+        <attrdef>Source-record globally unique identifier used to join survey and model records.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>msf</attrlabl>
+        <attrdef>LiDAR GBM probability for Multi-Story Foraging (MSF).</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>se</attrlabl>
+        <attrdef>LiDAR GBM probability for Stem Exclusion (SE).</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>si</attrlabl>
+        <attrdef>LiDAR GBM probability for Stand Initiation (SI).</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>structure_stage</attrlabl>
+        <attrdef>Structural-stage class assigned to this point or predicted for this location.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>LAI</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>LAD_max</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>LAD_mean</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>LAD_z_max</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>fractional_canopy_cover</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>rumple_index</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_trees</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>trees_per_acre</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_low</attrlabl>
+        <attrdef>LiDAR-derived vertical-stratum count or density metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_low_mid</attrlabl>
+        <attrdef>LiDAR-derived low-to-mid vertical stratum metric used by the final GBM.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_mid</attrlabl>
+        <attrdef>LiDAR-derived vertical-stratum count or density metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_mid_upper</attrlabl>
+        <attrdef>LiDAR-derived vertical-stratum count or density metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_strata_upper</attrlabl>
+        <attrdef>LiDAR-derived vertical-stratum count or density metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_gt_6_1</attrlabl>
+        <attrdef>LiDAR-derived measure of vegetation above 6.1 meters, used by the final GBM.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_gt_12_1</attrlabl>
+        <attrdef>LiDAR-derived vegetation-above-height-threshold metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_gt_24_1</attrlabl>
+        <attrdef>LiDAR-derived vegetation-above-height-threshold metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>topo_residual_sd</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>topo_entropy</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>smoothness_score</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>n_m2</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zmax</attrlabl>
+        <attrdef>Maximum LiDAR-derived vegetation height, in meters.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zmean</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zsd</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zskew</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zkurt</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zentropy</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>pzabovezmean</attrlabl>
+        <attrdef>Source attribute retained from the supplied dataset; its detailed domain definition has not yet been independently documented.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>zquantile_pc1</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_degree</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_strength</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_betweenness</attrlabl>
+        <attrdef>LiDAR-derived understory connectivity metric used by the final GBM.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_closeness</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_n_components</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_avg_path_length</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_eigen_ratio</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_graph_density</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_n_m2</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>understory_mean_abs_sa</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_degree</attrlabl>
+        <attrdef>LiDAR-derived midstory connectivity metric used by the final GBM.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_strength</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_betweenness</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_closeness</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_n_components</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_avg_path_length</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_eigen_ratio</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_graph_density</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_mean_abs_sa</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>midstory_n_m2</attrlabl>
+        <attrdef>LiDAR-derived understory or midstory structural/connectivity metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>bt_diff</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>graph_metrics_pca1</attrlabl>
+        <attrdef>LiDAR-derived vegetation-structure metric retained from the source dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>review</attrlabl>
+        <attrdef>Source review flag retained from the gut-check dataset.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>field_stage</attrlabl>
+        <attrdef>Recorded field stage harmonized to msf, se, or si for the three-class comparison.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>rule_stage</attrlabl>
+        <attrdef>Existing rule-model stage harmonized to msf, se, or si for the three-class comparison.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lidar_stage</attrlabl>
+        <attrdef>LiDAR GBM predicted stage: msf, se, or si.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>eligible_3class</attrlabl>
+        <attrdef>TRUE when recorded field, rule-model, and LiDAR stages are all available in the three-class comparison.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>review_status</attrlabl>
+        <attrdef>Review provenance stratum derived from the source review flag.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>comparison_outcome</attrlabl>
+        <attrdef>Agreement category relative to the recorded field call: both correct, one model correct, or both wrong.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>models_agree</attrlabl>
+        <attrdef>TRUE when the harmonized rule-model and LiDAR stages are identical among eligible records.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>rule_matches_field</attrlabl>
+        <attrdef>TRUE when the harmonized rule-model stage matches the recorded field stage among eligible records.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lidar_matches_field</attrlabl>
+        <attrdef>TRUE when the LiDAR stage matches the recorded field stage among eligible records.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>rule_to_lidar</attrlabl>
+        <attrdef>Directional transition from the harmonized rule-model stage to the LiDAR stage.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>field_rule_lidar</attrlabl>
+        <attrdef>Recorded field stage plus rule-to-LiDAR directional transition.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lidar_confidence</attrlabl>
+        <attrdef>Largest LiDAR class probability.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lidar_entropy</attrlabl>
+        <attrdef>Normalized Shannon entropy of LiDAR class probabilities; 0 is concentrated and 1 is evenly distributed.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>lidar_margin</attrlabl>
+        <attrdef>Largest LiDAR class probability minus the second-largest probability.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>koot_polygon_join_status</attrlabl>
+        <attrdef>Spatial-join status between the eligible point and koot_model_example polygon layer: matched_one_polygon, no_intersecting_polygon, or multiple_intersecting_polygons.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>koot_polygon_match_count</attrlabl>
+        <attrdef>Number of koot_model_example polygons intersecting the point.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>koot_fid_lynxha</attrlabl>
+        <attrdef>Identifier of the spatially matched koot_model_example polygon.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>koot_forest_id</attrlabl>
+        <attrdef>Forest identifier retained from the spatially matched koot_model_example polygon.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>koot_rule_structural</attrlabl>
+        <attrdef>Original rule-model structural category from the matched polygon.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>koot_rule_stage</attrlabl>
+        <attrdef>Matched-polygon rule-model structural category harmonized to msf, se, or si when comparable.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>koot_gbm_winner</attrlabl>
+        <attrdef>LiDAR structural stage with the largest summarized class share in the matched polygon.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>koot_gbm_msf_share</attrlabl>
+        <attrdef>Matched-polygon share of LiDAR structural-stage output classified as msf.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>koot_gbm_se_share</attrlabl>
+        <attrdef>Matched-polygon share of LiDAR structural-stage output classified as se.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>koot_gbm_si_share</attrlabl>
+        <attrdef>Matched-polygon share of LiDAR structural-stage output classified as si.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>koot_gbm_margin</attrlabl>
+        <attrdef>Matched-polygon difference between the largest and second-largest LiDAR structural-stage shares.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>koot_gbm_entropy_norm</attrlabl>
+        <attrdef>Normalized entropy of the matched-polygon LiDAR structural-stage shares.</attrdef>
+        <attrdefs>Project data record and derived audit documentation</attrdefs>
+      </attr>
+    </detailed>
+  </eainfo>
+  <metainfo>
+    <metd>20261001</metd>
+    <metstdn>FGDC Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001-1998</metstdv>
+    <ptcontac>
+      <cntinfo>
+        <cntper>Joshua Erickson</cntper>
+        <cntemail>joshualerickson@gmail.com</cntemail>
+      </cntinfo>
+    </ptcontac>
+  </metainfo>
+</metadata>

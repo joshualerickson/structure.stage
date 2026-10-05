@@ -1,0 +1,2 @@
+"source_layer","output_layer","raster","raster_crs","point_count","extracted_count","missing_or_outside_count","minimum","median","maximum"
+"gt_sf_eda_eligible_3class","gt_sf_eda_eligible_3class_landsat","landsat8_summer_fall_diff_R1_30m.tif","+proj=longlat +datum=WGS84 +no_defs",528,528,0,0.0431055314838886,0.259357929229736,0.48591223359108

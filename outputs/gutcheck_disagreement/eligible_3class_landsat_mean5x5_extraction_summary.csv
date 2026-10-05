@@ -1,0 +1,2 @@
+"source_layer","output_layer","raster","window_cells","nominal_window_width_m","point_count","extracted_count","complete_window_count","partial_window_count","missing_or_outside_count","minimum","median","maximum"
+"gt_sf_eda_eligible_3class","gt_sf_eda_eligible_3class_landsat_mean5x5","landsat8_summer_fall_diff_R1_30m.tif",5,150,528,528,528,0,0,0.074134855568409,0.254764133989811,0.437437952756882

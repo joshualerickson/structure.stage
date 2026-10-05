@@ -223,6 +223,88 @@ base::saveRDS(final_model, "outputs/models/lynx-v1-final.rds")
 `final_model` tunes and then refits on all supplied records. It is a deployment
 bundle, not a performance estimate. Use `mscv` metrics in reports and the final
 model only for subsequent prediction.
+
+## Three-class model behavior and SD ablation
+
+Use the final model bundle, an equivalent caret GBM `train` object, or a path to
+either RDS. The analysis is fixed to the known `msf`, `se`, and `si` outcomes.
+It treats `msf`–`se` as a named competition because their LiDAR signatures can
+be similar.
+
+```r
+ablation <- structure.stage::ablate_structure_gbm(
+  model = "outputs/models/lynx-v1-final.rds",
+  newdata = final_training_records,
+  reference_data = final_training_records,
+  variables = c("understory_mean_betweenness", "zmax", "n_strata_low_mid"),
+  sd_multiplier = 1
+)
+structure.stage::save_structure_ablation(
+  ablation, "outputs/interpretation", "lynx-v1-final"
+)
+```
+
+For every point and selected variable, the package predicts the original
+probability vector, then repeats the prediction after subtracting and adding one
+reference standard deviation. All other predictors remain fixed.
+
+| File suffix | Contents |
+| --- | --- |
+| `_point_changes.csv` | Point-level original/perturbed values, classes, and probability deltas |
+| `_average_changes.csv` | Mean probability changes and class-change rates overall and within each baseline class |
+| `_class_transitions.csv` | Baseline-to-perturbed class counts and rates |
+| `_msf_se_changes.csv` | Focused `msf`–`se` contrast by variable, direction, and baseline class |
+| `_baseline_predictions.csv` | Unperturbed three-class predictions, confidence, and top-two margin |
+| `_pairwise_competition.csv` | Point-level `msf`–`se`, `msf`–`si`, and `se`–`si` comparisons |
+
+In `_msf_se_changes.csv`, a positive `mean_delta_msf_minus_se` shifts model
+support toward `msf` relative to `se`; a negative value shifts it toward `se`.
+Small baseline margins and high class-transition rates identify points where a
+variable helps the model distinguish the pair. This is conditional model behavior,
+not a causal ecological effect: holding correlated LiDAR metrics fixed can create
+unobserved predictor combinations.
+
+Use `structure.stage::analyze_structure_predictions(final_model, newdata)` when
+you only need the three-class and pairwise competition tables. The file runner
+`dev/interpretation.R` provides `run_interpretation_files()` for model RDS and
+CSV inputs.
+
+### Betweenness at equal fixed heights
+
+To ask how understory betweenness changes the model response when height is held
+equal, use a fixed-height conditional response rather than the global ablation:
+
+```r
+fixed_height <- structure.stage::analyze_msf_se_height_betweenness(
+  final_model,
+  reference_data = final_training_records,
+  height_variable = "zmax",
+  betweenness_variable = "understory_mean_betweenness",
+  height_quantiles = c(0.25, 0.50, 0.75),
+  betweenness_quantiles = seq(0.05, 0.95, by = 0.05)
+)
+```
+
+At each requested height quantile, the function gives every reference record the
+same `zmax`, varies understory betweenness, preserves all other observed
+predictors, and averages the resulting probabilities. It therefore answers how
+the fitted model responds at equal heights, while retaining `P(si)` so a change
+in the MSF–SE contrast is not mistaken for an MSF transition when it is actually
+a shift to SI. It is a conditional model response, not held-out performance.
+
+For actual MSF–SE performance at comparable observed heights, use outer held-out
+predictions from nested CV:
+
+```r
+height_performance <- structure.stage::evaluate_msf_se_height_bins(
+  mscv, prepared, height_variable = "zmax", bins = 4L
+)
+```
+
+This reports MSF/SE recall and balanced accuracy within observed height bands.
+Use bands with adequate counts of both stand-derived classes. The plotting helpers
+`plot_fixed_height_msf_se()`, `plot_fixed_height_probabilities()`, and
+`plot_msf_se_height_performance()` are exported package functions.
 The exact Erickson et al. citation and equivalence to the historical published
 method still need confirmation.
 

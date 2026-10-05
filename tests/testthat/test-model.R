@@ -64,6 +64,16 @@ testthat::test_that("nested spatial CV supplies held-out predictions and a final
     base::c("accuracy", "kappa", "balanced_accuracy", "macro_f1", "log_loss", "brier_score"))
   testthat::expect_equal(base::nrow(result$metrics$per_class), 3L)
   testthat::expect_equal(base::nrow(result$fold_metrics), 18L)
+  height_performance <- structure.stage::evaluate_msf_se_height_bins(
+    result, data, height_variable = "height", bins = 3L
+  )
+  testthat::expect_equal(base::nrow(height_performance), 3L)
+  testthat::expect_equal(base::sum(height_performance$n), 2L * 72L)
+  testthat::expect_true(base::all(height_performance$balanced_accuracy >= 0 &
+                                  height_performance$balanced_accuracy <= 1))
+  height_plot <- structure.stage::plot_msf_se_height_performance(height_performance)
+  testthat::expect_s3_class(height_plot, "ggplot")
+  testthat::expect_s3_class(ggplot2::ggplot_build(height_plot), "ggplot_built")
   final <- structure.stage::fit_final_structure_gbm(
     data, base::c("height", "cover", "bt_diff"), outer, tune_grid = grid
   )
@@ -78,6 +88,37 @@ testthat::test_that("nested spatial CV supplies held-out predictions and a final
                          "already exist")
 })
 
+testthat::test_that("fixed-height betweenness response retains all three outcomes", {
+  data <- synthetic_training()
+  grid <- base::expand.grid(n.trees = 10L, interaction.depth = 1L,
+                            shrinkage = 0.1, n.minobsinnode = 2L)
+  folds <- structure.stage::build_spatial_folds(data, 18, k = 3)
+  final <- structure.stage::fit_final_structure_gbm(
+    data, base::c("height", "cover", "bt_diff"), folds, tune_grid = grid
+  )
+  response <- structure.stage::analyze_msf_se_height_betweenness(
+    final, data$records, height_variable = "height", betweenness_variable = "bt_diff",
+    height_quantiles = base::c(0.25, 0.75),
+    betweenness_quantiles = base::c(0.1, 0.5, 0.9)
+  )
+  testthat::expect_s3_class(response, "structure_conditional_response")
+  testthat::expect_equal(base::nrow(response$response), 6L)
+  testthat::expect_equal(response$response$mean_probability_msf +
+                            response$response$mean_probability_se +
+                            response$response$mean_probability_si,
+                          base::rep(1, 6L), tolerance = 1e-8)
+  testthat::expect_equal(base::length(base::unique(response$response$height_value)), 2L)
+  contrast_plot <- structure.stage::plot_fixed_height_msf_se(response)
+  probability_plot <- structure.stage::plot_fixed_height_probabilities(response)
+  testthat::expect_s3_class(ggplot2::ggplot_build(contrast_plot), "ggplot_built")
+  testthat::expect_s3_class(ggplot2::ggplot_build(probability_plot), "ggplot_built")
+  testthat::expect_error(
+    structure.stage::analyze_msf_se_height_betweenness(
+      final, data$records, height_variable = "height", betweenness_variable = "height"
+    ), "distinct"
+  )
+})
+
 testthat::test_that("nested mode selects variables inside outer training partitions", {
   data <- synthetic_training()
   grid <- base::expand.grid(n.trees = 10L, interaction.depth = 1L,
@@ -90,4 +131,58 @@ testthat::test_that("nested mode selects variables inside outer training partiti
   testthat::expect_identical(result$assessment, "nested_outer_spatial_cv")
   testthat::expect_true(base::all(base::lengths(result$selected$selected_predictors) >= 2L))
   testthat::expect_setequal(result$predictions$sample_id, data$records$sample_id)
+})
+
+testthat::test_that("SD ablation records point, average, and msf versus se behavior", {
+  data <- synthetic_training()
+  grid <- base::expand.grid(n.trees = 10L, interaction.depth = 1L,
+                            shrinkage = 0.1, n.minobsinnode = 2L)
+  folds <- structure.stage::build_spatial_folds(data, 18, k = 3)
+  final <- structure.stage::fit_final_structure_gbm(
+    data, base::c("height", "cover", "bt_diff"), folds, tune_grid = grid
+  )
+  analysis <- structure.stage::analyze_structure_predictions(final, data$records)
+  testthat::expect_s3_class(analysis, "structure_prediction_analysis")
+  testthat::expect_equal(base::nrow(analysis$points), base::nrow(data$records))
+  testthat::expect_equal(base::nrow(analysis$pairwise), 3L * base::nrow(data$records))
+  testthat::expect_equal(base::nrow(analysis$msf_se), base::nrow(data$records))
+  testthat::expect_setequal(analysis$pairwise_summary$class_a,
+                            base::c("msf", "msf", "se"))
+  result <- structure.stage::ablate_structure_gbm(
+    final, data$records, variables = base::c("height", "cover")
+  )
+  testthat::expect_s3_class(result, "structure_gbm_ablation")
+  testthat::expect_equal(base::nrow(result$point_changes), 4L * base::nrow(data$records))
+  testthat::expect_equal(base::nrow(result$average_changes), 16L)
+  testthat::expect_setequal(base::names(result$point_changes), base::c(
+    "point_id", "variable", "direction", "standard_deviation", "shift",
+    "original_value", "perturbed_value", "baseline_class", "perturbed_class",
+    "class_changed", "baseline_msf", "baseline_se", "baseline_si",
+    "perturbed_msf", "perturbed_se", "perturbed_si", "delta_msf", "delta_se", "delta_si"
+  ))
+  testthat::expect_true(base::all(base::abs(
+    result$point_changes$delta_msf + result$point_changes$delta_se + result$point_changes$delta_si
+  ) < 1e-8))
+  testthat::expect_setequal(result$msf_se_changes$baseline_group,
+                            base::c("all", "msf", "se", "si"))
+  model_path <- base::tempfile(fileext = ".rds")
+  base::on.exit(base::unlink(model_path), add = TRUE)
+  base::saveRDS(final, model_path)
+  from_rds <- structure.stage::ablate_structure_gbm(model_path, data$records, variables = "height")
+  testthat::expect_equal(base::nrow(from_rds$point_changes), 2L * base::nrow(data$records))
+  raw_analysis <- structure.stage::analyze_structure_predictions(final$model, data$records)
+  testthat::expect_equal(raw_analysis$points[, data$class_levels], analysis$points[, data$class_levels])
+  paths <- structure.stage::save_structure_ablation(result, base::tempdir(), "ablation-test")
+  base::on.exit(base::unlink(paths), add = TRUE)
+  testthat::expect_true(base::all(base::file.exists(paths)))
+  testthat::expect_error(
+    structure.stage::save_structure_ablation(result, base::tempdir(), "ablation-test"),
+    "already exist"
+  )
+  bad <- data$records
+  bad$height <- 1
+  testthat::expect_error(
+    structure.stage::ablate_structure_gbm(final, bad, reference_data = bad, variables = "height"),
+    "zero-variance"
+  )
 })

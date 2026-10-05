@@ -1,0 +1,79 @@
+"field_stage","comparison_outcome","metric","n","median"
+"msf","Both correct","understory_mean_degree",41,3.60802435874939
+"se","Both correct","understory_mean_degree",99,2.8947389125824
+"msf","Both wrong; different calls","understory_mean_degree",6,3.82764422893524
+"se","Both wrong; different calls","understory_mean_degree",27,3.96811270713806
+"si","Both wrong; different calls","understory_mean_degree",8,3.48407888412476
+"msf","Both wrong; same call","understory_mean_degree",9,3.41583061218262
+"se","Both wrong; same call","understory_mean_degree",80,3.45097076892853
+"si","Both wrong; same call","understory_mean_degree",12,3.0445704460144
+"msf","LiDAR correct; rule wrong","understory_mean_degree",18,3.7251912355423
+"se","LiDAR correct; rule wrong","understory_mean_degree",91,3.09231901168823
+"si","LiDAR correct; rule wrong","understory_mean_degree",27,3.74590158462524
+"msf","Rule correct; LiDAR wrong","understory_mean_degree",19,3.91987895965576
+"se","Rule correct; LiDAR wrong","understory_mean_degree",85,3.43798446655273
+"msf","Both correct","LAD_z_max",41,3.15549349784851
+"se","Both correct","LAD_z_max",99,11.6441965103149
+"msf","Both wrong; different calls","LAD_z_max",6,4.00394868850708
+"se","Both wrong; different calls","LAD_z_max",27,5.60585641860962
+"si","Both wrong; different calls","LAD_z_max",8,4.15348768234253
+"msf","Both wrong; same call","LAD_z_max",9,4.77073812484741
+"se","Both wrong; same call","LAD_z_max",80,5.14160990715027
+"si","Both wrong; same call","LAD_z_max",12,10.2634377479553
+"msf","LiDAR correct; rule wrong","LAD_z_max",18,2.5
+"se","LiDAR correct; rule wrong","LAD_z_max",91,10.0712118148804
+"si","LiDAR correct; rule wrong","LAD_z_max",27,3.23001837730408
+"msf","Rule correct; LiDAR wrong","LAD_z_max",19,3.10191130638123
+"se","Rule correct; LiDAR wrong","LAD_z_max",85,5.48818635940552
+"msf","Both correct","zskew",41,0.413872390985489
+"se","Both correct","zskew",99,-0.145771205425262
+"msf","Both wrong; different calls","zskew",6,1.00017467141151
+"se","Both wrong; different calls","zskew",27,0.777986288070679
+"si","Both wrong; different calls","zskew",8,0.651260077953339
+"msf","Both wrong; same call","zskew",9,-0.00836969632655382
+"se","Both wrong; same call","zskew",80,0.291629463434219
+"si","Both wrong; same call","zskew",12,0.375688374042511
+"msf","LiDAR correct; rule wrong","zskew",18,0.439751520752907
+"se","LiDAR correct; rule wrong","zskew",91,-0.0303173903375864
+"si","LiDAR correct; rule wrong","zskew",27,1.56781339645386
+"msf","Rule correct; LiDAR wrong","zskew",19,0.242640525102615
+"se","Rule correct; LiDAR wrong","zskew",85,0.237106189131737
+"msf","Both correct","topo_entropy",41,1.4187376499176
+"se","Both correct","topo_entropy",99,1.85040843486786
+"msf","Both wrong; different calls","topo_entropy",6,1.30400395393372
+"se","Both wrong; different calls","topo_entropy",27,1.61910545825958
+"si","Both wrong; different calls","topo_entropy",8,1.61632281541824
+"msf","Both wrong; same call","topo_entropy",9,1.93307292461395
+"se","Both wrong; same call","topo_entropy",80,1.62819242477417
+"si","Both wrong; same call","topo_entropy",12,1.6129823923111
+"msf","LiDAR correct; rule wrong","topo_entropy",18,1.43785667419434
+"se","LiDAR correct; rule wrong","topo_entropy",91,1.80103254318237
+"si","LiDAR correct; rule wrong","topo_entropy",27,1.22896802425385
+"msf","Rule correct; LiDAR wrong","topo_entropy",19,1.69258666038513
+"se","Rule correct; LiDAR wrong","topo_entropy",85,1.65994572639465
+"msf","Both correct","n_gt_12_1",41,16.963550567627
+"se","Both correct","n_gt_12_1",99,25.7574672698975
+"msf","Both wrong; different calls","n_gt_12_1",6,11.6501989364624
+"se","Both wrong; different calls","n_gt_12_1",27,9.07274436950684
+"si","Both wrong; different calls","n_gt_12_1",8,22.995777130127
+"msf","Both wrong; same call","n_gt_12_1",9,26.8485546112061
+"se","Both wrong; same call","n_gt_12_1",80,16.8606367111206
+"si","Both wrong; same call","n_gt_12_1",12,19.1747274398804
+"msf","LiDAR correct; rule wrong","n_gt_12_1",18,19.4797172546387
+"se","LiDAR correct; rule wrong","n_gt_12_1",91,27.3334560394287
+"si","LiDAR correct; rule wrong","n_gt_12_1",27,6.63153123855591
+"msf","Rule correct; LiDAR wrong","n_gt_12_1",19,20.6124973297119
+"se","Rule correct; LiDAR wrong","n_gt_12_1",85,17.9954051971436
+"msf","Both correct","landsat8_summer_fall_diff_mean_5x5",41,0.263609246015549
+"se","Both correct","landsat8_summer_fall_diff_mean_5x5",99,0.227249020934105
+"msf","Both wrong; different calls","landsat8_summer_fall_diff_mean_5x5",6,0.276742577552795
+"se","Both wrong; different calls","landsat8_summer_fall_diff_mean_5x5",27,0.248113076090813
+"si","Both wrong; different calls","landsat8_summer_fall_diff_mean_5x5",8,0.244157819598913
+"msf","Both wrong; same call","landsat8_summer_fall_diff_mean_5x5",9,0.283342146873474
+"se","Both wrong; same call","landsat8_summer_fall_diff_mean_5x5",80,0.26785343080759
+"si","Both wrong; same call","landsat8_summer_fall_diff_mean_5x5",12,0.259138496518135
+"msf","LiDAR correct; rule wrong","landsat8_summer_fall_diff_mean_5x5",18,0.250764480233192
+"se","LiDAR correct; rule wrong","landsat8_summer_fall_diff_mean_5x5",91,0.237220163345337
+"si","LiDAR correct; rule wrong","landsat8_summer_fall_diff_mean_5x5",27,0.297797726392746
+"msf","Rule correct; LiDAR wrong","landsat8_summer_fall_diff_mean_5x5",19,0.229547113478184
+"se","Rule correct; LiDAR wrong","landsat8_summer_fall_diff_mean_5x5",85,0.262845394015312

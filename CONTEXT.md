@@ -586,3 +586,15 @@ PyTorch and Python raster tooling remain options for a later CNN extension, with
 ## Working project statement
 
 > We are building a reusable R workflow for vegetation structural-stage prediction using LiDAR-derived predictors and the Erickson et al. spatial feature-selection and cross-validation approach, with the exact methodological reference still to be recorded. The workflow will accommodate provider-specific preparation through explicit interfaces, support additional training data and reproducible retraining, and preserve the existing GBM as the baseline. Neighborhood CNNs remain a later comparison under spatial validation. Stand-derived sample labels are not independent pixel-level truth.
+
+## Interpretation branch
+
+The `interpretation` branch provides a deliberately three-class framework for
+final GBM models. `analyze_structure_predictions()` records all class
+probabilities, prediction margins, and pairwise competitions, including a named
+`msf`–`se` table. `ablate_structure_gbm()` performs one-variable-at-a-time
+plus/minus SD perturbations, outputting point changes, average changes, class
+transitions, and the change in `P(msf) - P(se)`. `save_structure_ablation()`
+writes these results to versioned CSV files and an RDS. The perturbation analysis
+holds correlated predictors fixed and can create unrealized combinations; it is
+therefore a model-sensitivity diagnostic rather than a causal explanation.
